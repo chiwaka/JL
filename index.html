@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+    <head>
+         <meta charset="utf-8">
+          
+	  <meta name="viewport" content="initial-scale=1, maximum-scale=4, user-scalable=2, width=device-width">
+	
+	<script type="text/javascript" src="cordova.js"></script>
+	
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+	<link rel="stylesheet" href="css/jquery.mobile.iscrollview.css"/> 
+	<link rel="stylesheet" href="css/toastr.min.css"/> 
+	<link rel="stylesheet" href="css/jquery.guillotine.css"/> 
+	
+	
+	<link rel="stylesheet" href="css/css.css" />
+	<script src="js/jquery.js"></script>
+	<script src="js/js.js"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js"></script>
+	<script src="js/hammer.min.js"></script>
+	<!--
+	<script src="js/iscroll.js"></script> 	
+	<script src="js/jquery.mobile.iscroll.js"></script> 	
+	<script src="js/jquery.mobile.iscrollview.js"></script> 	
+	-->
+	<script src="js/toastr.min.js"></script> 	
+	<script src="js/jquery.guillotine.min.js"></script> 
+	<script src="js/fastclick.js"></script> 
+	<script src="js/sweetalert2.all.min.js"></script>
+	<!-- Firebase App is always required and must be first -->
+	<!--<script src="js/sweetalert.js"></script> -->
+	
+	
+	<style>
+				#top{border:0px solid red;width:2140px;height:100px;}
+				#top li{display:block;float:left;width:100px;height:100px;margin-left:6px;}
+				#top li:first-child {margin-left:0px;}
+			</style>
+</head>	
+ <body>
+	<!-- ************************************************ PAGINA PRINCIPAL  *****************************************************************************************************************-->
+	<div data-role="page" id="principal" class="bg200" style="position:absolute;box-sizing:border-box !important;top:0;bottom:0;width:100%;height:100% !important;overflow:hidden;">
+		<div id="cover" class="flexrow" style="position:absolute;top:0;bottom:0;width:100%;background-color:rgb(200,200,200);z-index:999;" >
+			<img id="cartel" src="imagenes/pachaflaspop.png">
+		</div>
+		
+		<div class="sombra flexcolumn h100 bg100"> 
+			<div class="flexrow h50 w100" style="border-bottom:1px solid gray;">
+				<!--
+				<img src="imagenes/PachaNombre.png"/><h1 class="f20" style="margin-left:6px !important;font-family:Roboto !important;">FLASPOP</h1>	
+				-->
+				<h1 class="f20"><span style="color:maroon;">PACHÁ </span>FLASPOP</h1>	
+			</div>	
+			<div class="flexrow w100 h50" style="justify-content:space-evenly;background-color:rgb(100,100,100);">
+				<img id="menumostrarfavoritos" class="imagenmenu" style="width:30px;opacity:0.2" src="imagenes/favoritos2.png" onclick="mostrarfavoritos();" />
+				<img id="menuverpaginabusqueda" class="imagenmenu" style="width:30px;opacity:0.2;" src="imagenes/buscar.png" onclick="verpaginabusqueda();" />
+				<img id="menuverpaginaperfil" class="imagenmenu" style="width:30px;opacity:0.2" src="imagenes/configurar4.png" onclick="verpaginaperfil();"/>
+				<img class="imagenmenu" style="width:30px;opacity:0.2" src="imagenes/mensajes.png" onclick="vermensajesgeneral();"/>
+				<img class="imagenmenu"  style="width:30px;opacity:0.2" src="imagenes/informacion2.png" /></a>
+			</div>
+		</div>
+		<div id="entrar" class="w100 h60 bg100 flexrow" style="position:absolute;bottom:0;z-index:10;">
+			<h4 class="f20" style="text-shadow:2px 2px rgb(120,120,120);" onclick="entrar();"><span id="labelentrar">ENTRAR</span></h4>	
+		</div>
+		<div id="contenido" class="bg200 w100" style="position:absolute;top:110px;bottom:80px;background-image:url(imagenes/pacha.jpg);background-size:contain;background-repeat:no-repeat;background-position:center;">
+			<div id="topflases" style="display:none;padding-left:6px;">
+				<p>TOP FLASES</p>
+			</div>
+			<div id="topscroll" style="border:0px solid yellow;overflow-x:auto;overflow-y:hidden;width:96%;height:100px;margin:6px auto 0 auto;bbackground:rgb(230,230,230);">
+				
+			</div>
+		</div>
+		<div id="pie" class="w100 flexrow bg100 h100" style="visibility:hidden;position:absolute;bottom:0;">
+			<div class="flexcolumn h100" style="width:33.33%;justify-content:flex-end;border-right:1px solid rgb(160,160,160);" onclick="verflasesestados(1);">
+				<div class="flexrow">
+					<h6 id="numerodeflasesenviados" style="margin:0;padding:0;font-size:66px;line-height:1">0</h6><!--<p style="font-size:14px !important;">/</p><p style="font-size:14px !important;">10</p>-->
+				</div>	
+				<p id="labelenviados" style="font-size:14px;">Enviados</p>
+			</div>
+			<div class="flexcolumn" style="width:33.33%;height:100%;justify-content:flex-end;border-right:1px solid rgb(160,160,160);" onclick="verflasesestados(2);">
+				<h6 id="numerodeflasesrecibidos" style="margin:0;padding:0;font-size:66px;line-height:1">0</h6>
+				<p id="labelrecibidos" style="font-size:14px;">Recibidos</p>
+			</div>
+			<div class="flexcolumn" style="width:33.33%;height:100%;justify-content:flex-end;border-right:1px solid rgb(160,160,160);" onclick="verflasesestados(3);">
+				<h6 id="numerodeflaspops" style="margin:0;padding:0;font-size:66px;line-height:1">0</h6>
+				<p style="font-size:14px;">FlasPops</p>
+			</div>
+		</div>
+	</div>
+	<!-- *************************************************************************** PAGINA DE FAVORITOS ********************************************************************************-->
+	<div id="pensando" style="display:none;position:fixed;left:0;top:0;width:100%;height:100%;background-color:rgb(100,100,100);opacity:0.7;z-index:900;">
+			<table style="width:100%;height:100%;"><tr><td style="text-align:center;"><img src="imagenes/await2.gif"></td></tr></table>
+	</div>
+	<div id="paginagris" style="display:none;position:fixed;left:0;top:0;width:100%;height:100%;background-color:rgb(100,100,100);opacity:0.7;z-index:900;">
+			
+	</div>
+	<div data-role="page" class="bg200" id="favoritos">
+		<div class="sombra flexcolumn h50 bg100 w100" style="position:fixed;z-index:1"> 
+			<h1 class="f20" style="margin-left:6px !important;">FAVORITOS</h1>	
+		</div>
+		<div id="contenidofavoritos" class="w100 bg200" style="position:absolute;top:60px;padding:10px !important;">
+			
+	
+		</div>
+	</div>
+	<!-- *************************************************************************** PAGINA FLASES ENVIADOS-RECIBIDOS-FLASPOPS ********************************************************************************-->
+	<div data-role="page"  class="bg200" id="flasesestados">
+		<div class="sombra flexrow h50 bg100 w100" style="position:fixed;z-index:1"> 
+			<div class="button back" style="position:absolute;left:10px;" onclick="BotonAtras();"></div>
+			<h1 id="labelflasesestados" class="f20" style="margin-left:6px !important;color:white;">FLASESESTADOS</h1>
+		</div>
+		<div id="contenidoflasesestados" class="w100 bg200" style="position:absolute;top:60px;padding:10px !important;">
+			
+		</div>
+	</div>
+	<!-- *************************************************************************** PAGINA DE PERFIL ********************************************************************************-->
+	<style>
+		.limpio{background-color:transparent ;border:0;border-bottom:0px solid blue;text-transform:uppercase;}
+		.limpio:focus{outline:none;}
+		label{margin:0 !important;margin-top:0px !important}
+		input{margin:0 !important;margin-top:20px !important}
+		
+		
+				
+		
+		
+		
+		
+	</style>
+	<div data-role="page"  class="bg200" id="perfil">
+		<div class="sombra flexrow h50 bg100 w100" style="position:fixed;z-index:1"> 
+			<!--
+			<img src="imagenes/guardar.png" style="position:absolute;left:20px;height:40px;" onclick="BotonAtras();"/>
+			-->
+			<div class="button back" style="position:absolute;left:10px;" onclick="BotonAtras();"></div>
+			<h1 id="labelperfil" class="f20" style="margin-left:6px !important;color:white;">PERFIL</h1>
+			<!--
+			<img src="imagenes/ok3.png" style="position:absolute;right:20px;top:4px;height:40px;" onclick="grabarperfil();"/>		
+			-->
+			<div class="button ok" style="position:absolute;right:10px;font-size:10px;" onclick="grabarperfil();"></div>
+		</div>
+		<div id="contenido" class="w100 bg200" style="position:absolute;top:60px;">
+			<div id="fotocontenedor" class="flexrow w100">
+				<div id="foto" class="w75 sombraimagen" style="margin-top:20px !important;height:200px;background:url(imagenes/loader3.gif) no-repeat center center" onclick="dedondefoto();"> 
+					<img id="fotoperfil" src="" style="width:100%;" />
+				</div>
+			</div>
+			<div class="w85 centrado">
+				<p class="center" style="font-size:12px;font-style:italic;margin-top:14px !important;">Pulsa en la imagen para cambiar la foto</p>
+			</div>
+			<div class="raya"></div>
+			<div class="w85 centrado" onclick="$('#nombreusuario').trigger('focus');">
+				<label class="titulo" id="labelnombre">Nombre</label>
+				<p class="titulo" style="font-size:12px;text-decoration:italic;margin-top:0 !important">(Max. 10 caracteres)</p>
+				<input type="text" id="nombreusuario" data-role="none" class="limpio w100" maxlength="10" style="margin-bottom:0px !important;" value="" /> 
+			</div>
+			<div class="raya"></div>
+			<div class="w85 centrado" onclick="$('#pensamiento').trigger('focus');">
+				<label class="titulo" id="labelunafrase"></label>
+				<p class="titulo" style="font-size:12px;text-decoration:italic;margin-top:0 !important">(Max. <span id="maximopensamiento">150</span> caracteres)</p>
+				<textarea class="llimpio bg200" id="pensamiento" maxlength="150" rows="7" data-role="none" style="text-transform:none;margin-top:20px;width:100%;"></textarea>
+			</div>
+			<div class="raya"></div>	
+			<div class="w85 centrado" onclick="seleccionarsexo();">	
+				<label class="titulo" id="labelsexo">Sexo</label>
+				<div class="w100" style="border:0;border-bottom:0px solid blue !important;">
+					<p id="sexoliteral" data-sexo=0 style="margin-top:30px !important;height:20px;"></p>
+				</div>
+			</div>
+			<div class="raya"></div>				
+			<div class="w85 centrado" onclick="$('#fechadenacimiento').trigger('focus');">
+				<label class="titulo" id="labelfechadenacimiento">Fecha de nacimiento</label>
+				<input id="fechadenacimiento" type="date" data-role="none" class="limpio w100" style="margin-top:30px !important;" />
+			</div>	
+			<div class="raya"></div>	
+			<div class="w85 centrado" onclick="seleccionaradmito();">	
+				<label class="titulo" id="labeladmito">Admito flases de ...</label>
+				<div class="w100" style="border:0;border-bottom:0px solid blue !important;">
+					<p id="admitoliteral" data-admito=0 style="margin-top:30px !important;height:20px;"></p>
+				</div>
+			</div>
+			<div class="raya"></div>
+			<div class="w85 centrado box"> 
+				<label class="titulo" style="margin-bottom:20px !important;">SOY</label> 
+				<table id="tablasoy">
+				</table>
+			</div>	
+			<div class="raya"></div>
+			<div class="w85 centrado box"> 
+				<label class="titulo" style="margin-bottom:20px !important;">ME GUSTA</label> 
+				<table id="tablamegusta">
+				</table>
+			</div>	
+		</div>
+		
+		
+		
+		<div id="todo" style="display:none;position:fixed;top:0;bottom:0;width:100%;background-color:black;z-index:1;opacity:0.7;"></div>
+		<div id="paginaguillotine" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background-color:black !important;z-index:600;">
+			<div class="sombra flexcolumn h100 bg100"> 
+				<div class="flexrow h50 w100" style="border-bottom:1px solid gray;">
+					<!--
+					<img src="imagenes/PachaNombre.png"/><h1 class="f20" style="margin-left:6px !important;font-family:Roboto !important;">FLASPOP</h1>	
+					-->
+					<h1 class="f20"><span style="color:black;">EDITAR IMAGEN</h1>	
+				</div>	
+				<div class="flexrow w100 h50" style="justify-content:space-evenly;background-color:rgb(100,100,100);">
+					<img class="imagenmenu sombraimagen" style="width:30px;opacity:0.2;" src="imagenes/volteari3.png" onclick="$('#imagencrop').guillotine('rotateLeft');" />
+					<img class="imagenmenu sombraimagen" style="width:30px;opacity:1" src="imagenes/voltear3d.png" onclick="$('#imagencrop').guillotine('rotateRight');" />
+					<img class="imagenmenu" style="width:30px;opacity:1;" src="imagenes/ok4.png" onclick="subirfoto();" />
+				</div>
+			</div>
+			<div style="width:100%;margin-top:20px;"> 
+				<img id="imagencrop" src="" style="width:100%;">
+			</div>	
+		</div>
+		<!--
+		<div id="introducirnombre" class="w100" style="display:none;position:fixed;bottom:0;overflow:hidden;background-color:white;z-index:2;background-color:white;padding-bottom:10px !important;">
+			<p class="w100 center" style="margin:10px 0 !important;">Introduce tu Nombre</p>		
+			<div class="centrado" style="width:80%;">
+				<input id="inputintroducirnombre" type="text" style="text-transform:uppercase;text-align:center;margin:auto;" />
+			</div>	
+		</div>
+		-->
+		<div id="sexo" class="w100" style="display:none;position:fixed;bottom:0;overflow:hidden;background-color:white;z-index:2;background-color:white;height:200px;background:url(imagenes/celeste.gif) repeat;">
+			<div class="flexcolumn" style="height:100%;justify-content:space-between;width:100%;">
+				<h2 style="justify-self:flex-start;font-size:16px;margin-top:10px;">SELECCIONA TU SEXO</h2>
+				<div class="flexrow" style="align-self:center;">
+					<img onclick="devolversexo(1);" src="imagenes/Hombre10.png" style="width:50%;margin-right:40px;" />
+					<img onclick="devolversexo(2);"  src="imagenes/Mujer2.jpg" style="width:40%;" />
+				</div>
+				<div></div>
+			</div>
+		</div>
+		<div id="admito" class="w100" style="display:none;position:fixed;bottom:0;overflow:hidden;background-color:white;z-index:2;background-color:white;height:200px;">
+			<div class="flexcolumn" style="height:100%;justify-content:space-between;width:100%;">
+				<h2 style="justify-self:flex-start;font-size:16px;margin-top:10px;">ADMITO FLASES DE</h2>
+				<div class="flexrow w100" style="align-self:center;">
+					<img onclick="devolveradmito(1);" src="imagenes/Hombre2.jpg" style="width:25%;margin-left:5%;margin-right:5%;" />
+					<img onclick="devolveradmito(2);"  src="imagenes/Mujer2.jpg" style="width:25%;margin-right:5%;" />
+					<img onclick="devolveradmito(3);"  src="imagenes/delosdos.jpg" style="width:25%;" />
+				</div>
+				<div></div>
+			</div>
+		</div>
+		<div id="dedondefoto" class="w100" style="display:none;position:fixed;bottom:0;overflow:hidden;background-color:white;z-index:2;background-color:rgb(250,252,220);background:url(imagenes/marmol.jpg) repeat;">
+			<p id="labelseleccionaelorigendelaimagen" class="center" style="margin-top:10px;margin-bottom:30px;font-style:italic;">Selecciona el origen de la foto</p>
+			<div class="flexrow" style="height:100%;justify-content:space-around;width:100%;margin-bottom:30px;">
+				<a id="labelcamara" class="ui-btn ui-icon-camera ui-btn-icon-top">CAMARA</a>
+				<a id="labelgaleria" class="ui-btn ui-icon-grid ui-btn-icon-top" href="#">GALERÍA</a>
+			</div>
+		</div>		
+	</div>
+	<!-- *************************************************************************** PAGINA DE BÚSQUEDA ********************************************************************************-->
+	<div data-role="page"  class="bg200" id="busqueda">
+		<div class="sombra flexrow h50 bg100 w100" style="position:fixed;z-index:1"> 
+			<div class="button back" style="position:absolute;left:10px;" onclick="BotonAtras();"></div>
+			<h1 id="labelperfil" class="f20" style="margin-left:6px !important;color:white;">BÚSQUEDAS</h1>
+			<div class="button ok" style="position:absolute;right:10px;font-size:10px;" onclick="registroelemento=0;buscar();"></div>
+		</div>
+		<div id="contenidobusqueda" class="w100 bg200" style="position:absolute;top:60px;">
+			<div class="w85 centrado" onclick="$('#nombrebusquedausuario').trigger('focus');">
+				<label class="titulo" id="labelnombre">Por Nombre</label>
+				<p class="titulo" style="font-size:12px;text-decoration:italic;margin-top:0 !important">(Max. 10 caracteres)</p>
+				<input type="text" id="nombrebusquedausuario" data-role="none" class="limpio w100" maxlength="10" style="margin-bottom:0px !important;" value="" /> 
+			</div>
+			<div class="raya"></div>
+			<div class="w85 centrado"> 
+				<label class="titulo" id="labelnombre">Por Edad</label>
+				<div class="flexrow" style="justify-content:space-between;">
+				<span>De</span>
+				<select name="edad1" id="edad1" data-mini="false" data-inline="true">
+				</select>
+				<span>a</span>
+				<select name="edad2" id="edad2" data-mini="false" data-inline="true">
+				</select>
+				</div>
+			</div>
+			<div class="raya"></div>
+			<div class="w85 centrado">
+				<label class="titulo" id="labelhoroscopo">Horóscopo</label>
+				<select id="selecthoroscopo" data-mini="false">
+				</select>
+			</div>
+			<div class="raya"></div>
+			<div class="w85 centrado">
+				<label class="titulo" id="labelbusquedanombre">Por forma de ser</label>
+				<table id="tablabusquedasoy">
+				</table>
+			</div>
+			<div class="raya"></div>
+			<div class="w85 centrado">
+				<label class="titulo" id="labelbusquedamegusta">Por Intereses</label>
+				<table id="tablabusquedamegusta">
+				</table>
+			</div>
+		</div>
+	</div>
+	<!-- *************************************************************************** PAGINA DE RESULTADODEBÚSQUEDA ********************************************************************************-->
+	<div data-role="page"  class="bg200" id="resultadobusqueda">
+		<div class="sombra flexrow h50 bg100 w100" style="position:fixed;z-index:1"> 
+			<div class="button back" style="position:absolute;left:10px;" onclick="BotonAtras();"></div>
+			<h1 id="labelperfil" class="f20" style="margin-left:6px !important;color:white;">RESULTADOS</h1>
+			<div class="button ok" style="position:absolute;right:10px;font-size:10px;" onclick="buscar();"></div>
+		</div>
+		<div id="contenidoresultadobusqueda" class="w100 bg200" style="position:absolute;top:60px;padding:10px !important;">
+			
+		</div>
+	</div>
+	<!-- *************************************************************************** PAGINA DE DETALLES ********************************************************************************-->
+	<div data-role="page"  class="bg200" id="detalles">
+		<div id="pantallaflas" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background-color:red;z-index:999;">
+			<p>FLAS</p>
+		</div>
+		<!--
+		<div class="sombra flexrow h50 bg100 w100" style="position:fixed;z-index:1"> 
+			<div class="button back" style="position:absolute;left:10px;" onclick="BotonAtras();"></div>
+			<h1 id="labeldetalles" class="f20" style="margin-left:6px !important;color:white;">RESULTADOS</h1>
+			<div class="button ok" style="position:absolute;right:10px;font-size:10px;" onclick="buscar();"></div>
+		</div>
+		-->
+		<div class="sombra flexcolumn h100 bg100 w100" style="position:fixed;z-index:1;"> 
+			<div class="flexrow h50 w100" style="border-bottom:1px solid gray;">
+				<h1 id="labeldetalles" class="f20" style="margin-left:6px !important;color:white;">RESULTADOS</h1>
+				<img src="imagenes/favoritos2.png"  id="favoritoendetalles" style="display:none;position:absolute;right:10px;font-size:10px;width:30px;margin-top:-4px !important;" onclick="quitardefavoritos();">
+			</div>	
+			<!--
+			<div class="flexrow w100 h50" style="justify-content:space-evenly;background-color:rgb(100,100,100);">
+				<img class="imagenmenu" id="añadirfavoritos" style="width:30px;opacity:1" src="imagenes/favoritos2.png" onclick="añadirfavoritos();"/>
+			
+				<img class="imagenmenu"  id="enviarflas" style="width:30px;opacity:1" src="imagenes/informacion2.png" onclick="enviarflas();"/>
+				<img class="imagenmenu" style="width:30px;opacity:1;display:block;" src="imagenes/mensajes.png" />
+			</div>
+			-->
+			<div class="w100 h50" style="background-color:rgb(100,100,100);">
+				<table class="w100" style="height:100%;text-align:center;">
+					<tr>
+					<td><img class="imagenmenu" id="añadirfavoritos" style="vertical-align:middle;width:30px;opacity:1" src="imagenes/favoritos2.png" onclick="añadirfavoritos();"/></td>
+					<td><img class="imagenmenu"  id="enviarflas" style="vertical-align:middle;width:60px;opacity:1" src="imagenes/flas3.png" onclick="enviarflas();"/></td>
+					<td><img class="imagenmenu"  id="enviarpop" style="vertical-align:middle;width:60px;opacity:1" src="imagenes/pop3.png" onclick="enviarflas();"/></td>
+					<td><img class="imagenmenu" id="enviarmensaje" style="vertical-align:middle;width:30px;opacity:0.2;" src="imagenes/mensajes.png"  onclick="mensajesprivados();" /></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div id="contenidodetalles" class="w100 bg200" style="position:absolute;top:101px;padding:0px !important;">
+			<img id="imagendetalles" src="" style="width:100%;">
+			<div class="flexrow w85 centrado" style="justify-content:space-between;margin-top:8px;">
+				<div class="flexrow">
+					<img src="imagenes/calendario.png" style="width:30px;"/>
+					<p id="años" style="margin-left:6px;">años</p>
+				</div>
+				<div class="flexrow">
+					<img id="imagenhoroscopo" src="" style="width:30px;"/>
+					<p id="textohoroscopo" style="margin-left:6px;"></p>
+				</div>
+			</div>
+			<div class="raya"></div>
+			<div id="mensajeflas" class="flexcolumn" style="width:100%;padding:0 !important;margin:0;">
+				<div id="divflas" class="flexrow" style="display:none;">
+					<p style="padding:0 !important;line-height:1px;width:100%;text-align:center;">Le enviaste un</p> <img style="width:100px;margin-left:5px !important;" src="imagenes/flas3.png"/>
+				</div>
+				<div id="divflaspop" class="flexrow" style="display:none;">
+					<img style="width:100px;" src="imagenes/flas3.png"/><img style="width:100px;" src="imagenes/pop3.png"/>
+				</div>
+				<div class="raya"></div>
+			</div>
+			<div class="w85 centrado">
+				<p id="detallefrase"></p>
+			</div>
+			<div class="raya"></div>
+		</div>
+		<!-- *************************************************************************** POPUP DIALOG ********************************************************************************-->
+		<!--<div id="popupDialog" style="max-width: 400px;" data-role="popup" data-transition="pop" data-theme="b" data-overlay-theme="b" data-dismissible="false">-->
+		<!--<div data-role="header" data-theme="a">-->
+		<style>
+			#popupDialog div{width:100% !important;}
+			#popupDialog h1{width:100% !important;}
+		</style>
+		<div id="popupDialog" data-role="popup" data-transition="pop" data-overlay-theme="b" data-shadow="true" style="width:100% !important;">
+			<div data-role="header" style="background:red;">
+				<h1>FAVORITOS</h1>
+			</div>
+			<div class="ui-content" role="main">
+				<h3 class="ui-title" style="text-align:center;">¿Enviar a Favoritos?</h3>
+				<!--
+				<p>This action cannot be undone.</p>
+				-->
+				<div class="flexrow">
+					<a class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a" href="#" onclick="$('#paginagris').fadeOut();$('#popupDialog').popup('close');">Cancelar</a>
+					<a class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a" href="#" data-transition="flow" data-rel="back">Si</a>
+				</div>	
+			</div>
+		</div>
+	</div>
+	<!-- ****************************************************************************************************************************************************************
+																			PAGINA DE MENSAJES GENERAL
+	*******************************************************************************************************************************************************************-->
+		<div data-role="page"  class="bg200" id="mensajesgeneral"> 
+			<div class="sombra flexrow h50 bg100 w100" style="position:fixed;z-index:1"> 
+				<div class="button back" style="position:absolute;left:10px;" onclick="BotonAtras();"></div>
+				<h1 id="labelmensajesgeneral" class="f20" style="margin-left:6px !important;color:white;">MENSAJES</h1>
+			</div>
+			<div id="contenidomensajesgeneral" class="w100" style="position:absolute;top:60px;padding:14px !important;overflow:scroll;">
+				
+			</div>
+		</div>
+	
+	<!-- ****************************************************************************************************************************************************************
+																			PAGINA DE MENSAJES PRIVADOS
+	*******************************************************************************************************************************************************************-->
+		<style>
+			#paginamensajes span{font-size:16px;}
+			#paginamensajes span.yo{color:maroon; border:0px solid red;}
+			#paginamensajes p.otro{}
+			#paginamensajes p.hora{clear:both;float:right;font-size:12px;margin-top:4px;color:gray;}
+			#escritura{background-image: url('arena.jpg');background-attachment: fixed;}
+		</style>
+		<div data-role="page"  class="bg200" id="mensajesprivados" style="background:url(imagenes/aarena.jpg) repeat;background-color:rgb(248,242,233);">
+			<div class="sombra flexrow h50 bg100 w100" style="position:fixed;z-index:1"> 
+				<div class="button back" style="position:absolute;left:10px;" onclick="BotonAtras();"></div>
+				<h1 id="labelmensajesprivados" class="f20" style="margin-left:6px !important;color:white;">MENSAJES</h1>
+				<img id="imagenenbar" class="img-circle" style="position:absolute;right:0;top:0;height:50px;" src="imagenes/Hombre2.jpg" />
+			</div>
+			<div id="contenidomensajes" class="w100" style="position:absolute;top:60px;bottom:70px;padding:14px !important;overflow:scroll;">
+				<div class="yo">
+					<img src="http://www.afassvalencia.es/android/flaspop/fotosperfiles/337.jpg"> 
+					<p>Esto es simplemente un ejemplo</p>
+					<p>10:22</p>
+				</div>
+				<div class="tu">
+					<img src="http://www.afassvalencia.es/android/flaspop/fotosperfiles/11.jpg"> 
+					<p>Esto es simplemente un ejemplo</p>
+					<p>10:22</p>
+				</div>
+			</div>
+			<div id="escritura" class="flexrow" style="position:fixed;bottom:0px;left:0;width:100%;height:70px;background:white;overflow:hidden;padding:10px 0 10px 6px !important;background:url(imagenes/aarena.jpg) repeat;background-color:rgb(248,242,233);">
+				<div class="flexrow" style="justify-content:space-between;">
+					<div class="" style="margin:0;margin-right:10px;height:100%;padding:2px !important;">
+						<textarea id="edicionmensaje" rows="1" style="resize:none;text-align:left;font-size:16px;"/></textarea>
+					</div>	
+					<div style="width:80px;margin-right:10px;padding:0px;">
+						<button type="button" onclick="grabarmensaje();" style="width:100%;height:40px;padding:0px;">Enviar</button>
+					</div>	
+				</div>
+			</div>	
+		</div>
+			
+		<!--
+		<div id="paginamensajes" class="pagina" style="display:none;">
+			<div id="resultadomensajes" style="width:100%;overflow:scroll;padding:10px 0px 60px 0px;background: url(arena.jpg) repeat center center fixed;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;">
+			</div>
+		</div>
+		-->
+	<!-- *************************************************************************** PAGINA SIN CONEXIÓN ********************************************************************************-->
+	<div data-role="page"  class="bg200" id="sinconexion" style="width:100%;height:100%;background:url(imagenes/redes.jpg) no-repeat;background-size:cover;">
+			<div class="w85" style="height:100%;color:white;margin:auto;padding-top:50px;text-align:center;"> 
+				<h1>!OPSSS!</h1>
+				<h3>No tienes conexión a Internet.<br/>Conectate a una WIFI o activa tu conexión de datos.</h3>
+			</div>
+			<div class="flexrow w100" style="position:absolute;bottom:0;justify-content:space-evenly">
+				<input type="button" value="Reintentar" style="background-color:blue;" onclick="navigator.app.backHistory();">
+			</div>
+	</div>
+</body>
+</html>

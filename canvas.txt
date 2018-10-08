@@ -1,0 +1,29 @@
+// Create an empty canvas element.
+var canvas = document.createElement("canvas");
+canvas.width = img.naturalWidth || img.width;
+canvas.height = img.naturalHeight || img.height;
+
+
+// Copy the image contents to the canvas.
+var ctx = canvas.getContext("2d");
+ctx.drawImage(img, 0, 0);
+
+
+// Transformation: rotate, scale and crop the image inside the 
+// canvas using the data you get from `img.guillotine('getData')`.
+// ...
+
+
+// Get the data-URL formatted image.
+// This is what you upload to the server and parse as image.
+var dataURL = canvas.toDataURL("image/png");
+
+
+// Upload the image.
+$.ajax({
+  type: "POST",
+  url: "/save_image",
+  data: { 
+    img: dataURL
+  }
+}

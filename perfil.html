@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+	<meta charset="utf-8">
+          <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=1, width=device-width">
+	<script type="text/javascript" src="cordova.js"></script>
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+	<link rel="stylesheet" href="css/jquery.mobile.iscrollview.css"/> 
+	<link rel="stylesheet" href="css/css.css" />
+	<script src="js/jquery.js"></script>
+	<script src="js/js.js"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js"></script>
+	<script src="js/hammer.min.js"></script>
+	<script src="js/iscroll.js"></script> 	
+	<script src="js/jquery.mobile.iscroll.js"></script> 	
+	<script src="js/jquery.mobile.iscrollview.js"></script> 	
+	
+
+
+</head>	
+ <body>
+	<div data-role="page" id="perfil" class="">
+		<div class="sombra flexcolumn h50 bg100 w100" style="position:fixed;z-index:1"> 
+			<h1 class="f20" style="margin-left:6px !important;">PERFIL</h1>	
+		</div>
+		<div id="contenido" class="w100" style="position:absolute;top:60px;">
+			<div id="fotocontenedor" class="flexrow w100">
+				<div id="foto" class="w75 sombraimagen" style="margin-top:20px !important;height:200px;background:url(imagenes/loader3.gif) no-repeat center center"> 
+					
+				</div>
+			</div>
+			<div class="w85 centrado">
+				<p class="center" style="font-size:12px;font-style:italic;margin-top:14px !important;">Pulsa en la imagen para cambiar la foto</p>
+			</div>
+			<hr class="uno" />
+			<hr class="dos" />
+			<div class="ccontenedorperfil">
+				<p class="center">NOMBRE</p>
+				<input id="nombre" type="text" style="text-transform:uppercase;text-align:center;padding:0;"> 
+			</div>
+			<hr class="uno" />
+			<hr class="dos" />
+			<div class="ccontenedorperfil" onclick="seleccionarsexo();">
+				<p class="titulo center">SEXO</p>
+				<p id="sexoliteral" class="center"></p>
+				<!--
+				<p class="center" style="font-size:12px;font-style:italic;">Pulsar para seleccionar ...</p>
+				-->
+			</div>
+			<hr class="uno" />
+			<hr class="dos" />
+			<div class="ccontenedorperfil" onclick="seleccionarfechadenacimiento();">
+				<p class="titulo center">FECHA DE NACIMIENTO</p>
+			</div>
+			<hr class="uno" />
+			<hr class="dos" />
+			<div class="contenedorperfil" onclick="seleccionaradmito();" style="border:1px solid red;">
+				<p class="titulo center">ADMITO FLASES DE ...</p>
+				<p id="admitoliteral" class="center"></p>
+			</div>	
+			<hr class="uno" />
+			<hr class="dos" />
+			<div class="contenedorperfil"> 
+				<p class="titulo center">SOY</p>
+				
+			
+				<div class="w85 centrado">
+				 
+				<input name="checkbox-v-2a" id="checkbox-v-2a" type="checkbox" style="background-color:white !important;color:red;">
+				<label for="checkbox-v-2a">GUAPO</label>
+				<input name="checkbox-v-2b" id="checkbox-v-2b" type="checkbox">
+				<label for="checkbox-v-2b">SIMPÁTICO</label>
+				<input name="checkbox-v-2c" id="checkbox-v-2c" type="checkbox">
+				<label for="checkbox-v-2c">INQUIETO</label>
+				<input name="checkbox-v-3a" id="checkbox-v-3a" type="checkbox">
+				<label for="checkbox-v-3a">OTRO</label>
+				<input name="checkbox-v-3b" id="checkbox-v-3b" type="checkbox">
+				<label for="checkbox-v-3b">MORENO</label>
+				<input name="checkbox-v-3c" id="checkbox-v-3c" type="checkbox">
+				<label for="checkbox-v-3c">LISTO</label>
+				
+			</div>
+		</div>
+		
+		
+		
+		<div id="todo" style="display:none;position:fixed;top:0;bottom:0;width:100%;background-color:black;z-index:1;opacity:0.7;"></div>
+		<div id="sexo" class="w100" style="display:none;position:fixed;bottom:0;overflow:hidden;background-color:white;z-index:2;background-color:white;height:200px;">
+			<div class="flexcolumn" style="height:100%;justify-content:space-between;width:100%;">
+				<h2 style="justify-self:flex-start;font-size:16px;margin-top:10px;">SELECCIONA TU SEXO</h2>
+				<div class="flexrow" style="align-self:center;">
+					<img onclick="devolversexo(1);" src="imagenes/Hombre2.jpg" style="width:40%;margin-right:40px;" />
+					<img onclick="devolversexo(2);"  src="imagenes/Mujer2.jpg" style="width:40%;" />
+				</div>
+				<div></div>
+			</div>
+		</div>
+		<div id="admito" class="w100" style="display:none;position:fixed;bottom:0;overflow:hidden;background-color:white;z-index:2;background-color:white;height:200px;">
+			<div class="flexcolumn" style="height:100%;justify-content:space-between;width:100%;">
+				<h2 style="justify-self:flex-start;font-size:16px;margin-top:10px;">ADMITO FLASES DE</h2>
+				<div class="flexrow w100" style="align-self:center;">
+					<img onclick="devolveradmito(1);" src="imagenes/Hombre2.jpg" style="width:25%;margin-left:5%;margin-right:5%;" />
+					<img onclick="devolveradmito(2);"  src="imagenes/Mujer2.jpg" style="width:25%;margin-right:5%;" />
+					<img onclick="devolveradmito(3);"  src="imagenes/delosdos.jpg" style="width:25%;" />
+				</div>
+				<div></div>
+			</div>
+		</div>
+		<div id="fechadenacimiento" class="w100" style="display:none;position:fixed;bottom:0;overflow:hidden;background-color:white;z-index:2;background-color:white;">
+			<p class="center" style="font-size:16px;margin-top:14px !important;margin-bottom:20px !important;">Fecha de Nacimiento
+				<a class="ui-btn ui-shadow ui-corner-all ui-icon-delete ui-btn-icon-notext ui-btn-inline" href="#" style="position:absolute;margin-top:-8px;right:0;" onclick="quitarseleccionarsexo()">Delete</a>
+			</p>		
+			<div class="w85 centrado borde" style="padding-bottom:40px !important;">
+				<input id="ifechanacimiento" type="date">
+			</div>	
+		</div>	
+	</div>
+</body>
+</html>
