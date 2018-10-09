@@ -33,7 +33,6 @@ function fileApiCreado(){
 	$("#edicionmensaje").on("keyup input",function(){
 		$("#escritura").css("height",$("#edicionmensaje").height()+resto);
 	});
-	alert("vamos a poner literales");
 	PonerLiterales();
 }
 function PonerLiterales(){
@@ -75,16 +74,18 @@ function respuestaPonerLiterales(response){
 	ObtenerDatosPerfil();
 }
 function ObtenerDatosPerfil(){
-	alert("obtenerdatosperfil");
 	data={};
 	data.id=Usuario.id;
+	alert("Usuario:"+data.id;	
 	data.idioma=Usuario.idioma;
+	alert("Idioma:"+data.idioma;		
 	data.discoteca=discoteca.id;
+	alert("Discoteca:"+data.discoteca;		
 	data.fechafiesta=FechaFiesta;
+	alert("FechaFiesta:"+data.fechafiesta;		
 	jQuery.ajax({type: "POST",dataType: "json",url: ruta+"obtenerperfil.php",data:data}).done(respuestaObtenerDatosPerfil);
 }
 function respuestaObtenerDatosPerfil(response){
-	alert(response.enviados);
 	$("#numerodeflasesenviados").html(response.enviados);
 	$("#numerodeflasesrecibidos").html(response.recibidos);
 	$("#numerodeflaspops").html(response.flaspops);
@@ -117,6 +118,7 @@ function respuestaObtenerDatosPerfil(response){
 	$.each(megusta,function(i,val){
 		$("#megusta"+i).attr("checked",(response.megusta["megusta"+i]==1)?true : false);
 	});
+	alert("ha pasado perfil");
 	MostrarPantallaPrincipal()
 }
 function MostrarPantallaPrincipal(){
