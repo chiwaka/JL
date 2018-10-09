@@ -76,13 +76,13 @@ function respuestaPonerLiterales(response){
 function ObtenerDatosPerfil(){
 	data={};
 	data.id=Usuario.id;
-	alert("Usuario:"+data.id;	
+	alert("Usuario:"+data.id);	
 	data.idioma=Usuario.idioma;
-	alert("Idioma:"+data.idioma;		
+	alert("Idioma:"+data.idioma);		
 	data.discoteca=discoteca.id;
-	alert("Discoteca:"+data.discoteca;		
+	alert("Discoteca:"+data.discoteca);		
 	data.fechafiesta=FechaFiesta;
-	alert("FechaFiesta:"+data.fechafiesta;		
+	alert("FechaFiesta:"+data.fechafiesta);		
 	jQuery.ajax({type: "POST",dataType: "json",url: ruta+"obtenerperfil.php",data:data}).done(respuestaObtenerDatosPerfil);
 }
 function respuestaObtenerDatosPerfil(response){
