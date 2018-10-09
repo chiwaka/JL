@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "172819834758",
+    "firebase_url": "https://flaspop-af976.firebaseio.com",
+    "project_id": "flaspop-af976",
+    "storage_bucket": "flaspop-af976.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172819834758:android:828cea53a3f2721d",
+        "android_client_info": {
+          "package_name": "com.flaspop.flaspop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "172819834758-od8i103hccdblglvaukaidq4t2g4hr6e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPxLAu4pMAnLuhvXMG6ou8VhosMHAoQa4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

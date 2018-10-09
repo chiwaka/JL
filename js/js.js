@@ -237,26 +237,30 @@ function inicializar() {
 	  "hideMethod": "fadeOut"
 	}
 	camara.initialize();
-	/*
-	var push = PushNotification.init({android: {}});
+	const push = PushNotification.init({
+		android: {
+		},
+		ios: {
+			alert: "true",
+			badge: true,
+			sound: 'false'
+		},
+		windows: {}
+	});
 	push.on('registration', (data) => {
-	   Usuario.token=data.registrationId;
-	   alert(Usuario.token);
+		alert(data.registrationId);
 	});
 	push.on('notification', (data) => {
-		alert(data.message);
-	// data.message,
-	// data.title,
-	// data.count,
-	// data.sound,
-	// data.image,
-	// data.additionalData
+		console.log(data.message);
+		console.log(data.title);
+		console.log(data.count);
+		console.log(data.sound);
+		console.log(data.image);
+		console.log(data.additionalData);
 	});
-
 	push.on('error', (e) => {
-		// e.message
+		console.log(e.message);
 	});
-	*/
 }
 function ComprobarConexion() {
     if(navigator.connection.type==Connection.NONE){
