@@ -237,6 +237,7 @@ function inicializar() {
 	  "hideMethod": "fadeOut"
 	}
 	camara.initialize();
+	/*
 	var push = PushNotification.init({android: {}});
 	push.on('registration', (data) => {
 	   Usuario.token=data.registrationId;
@@ -254,7 +255,8 @@ function inicializar() {
 
 	push.on('error', (e) => {
 		// e.message
-	});	
+	});
+	*/
 }
 function ComprobarConexion() {
     if(navigator.connection.type==Connection.NONE){
