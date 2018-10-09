@@ -44,13 +44,11 @@ function PonerLiterales(){
 	jQuery.ajax({type: "POST",dataType: "json",url: ruta+"literales.php",data:data}).done(respuestaPonerLiterales);	
 }
 function respuestaPonerLiterales(response){
-	alert(response.cartel);
 	if(response.cartel==1){
 		var camino="url("+ruta+"carteles/"+FechaFiesta+".jpg)";
 	}else{
 		var camino="url("+ruta+"carteles/general.jpg)";
 	}
-	alert(camino);
 	$("#contenido").css("background-image",camino);
 	$("#labelentrar").text(response.labelentrar);
 	$("#labelenviados").text(response.labelenviados);
@@ -77,6 +75,7 @@ function respuestaPonerLiterales(response){
 	ObtenerDatosPerfil();
 }
 function ObtenerDatosPerfil(){
+	alert("obtenerdatosperfil");
 	data={};
 	data.id=Usuario.id;
 	data.idioma=Usuario.idioma;
@@ -85,6 +84,7 @@ function ObtenerDatosPerfil(){
 	jQuery.ajax({type: "POST",dataType: "json",url: ruta+"obtenerperfil.php",data:data}).done(respuestaObtenerDatosPerfil);
 }
 function respuestaObtenerDatosPerfil(response){
+	alert(response.enviados);
 	$("#numerodeflasesenviados").html(response.enviados);
 	$("#numerodeflasesrecibidos").html(response.recibidos);
 	$("#numerodeflaspops").html(response.flaspops);
