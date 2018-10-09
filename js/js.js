@@ -20,6 +20,7 @@ $(document).on("ready", function() {
 function todopreparado(){
 	if(deviceready && mobileinit && ready){
 		inicializar();
+		alert("amo a fileapi");
 		fileApi.initialize();	
 		// Continúa en el evento fileApiCreado
 	}
