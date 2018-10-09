@@ -39,10 +39,9 @@ function fileApiCreado(){
 function PonerLiterales(){
 	//Aprovechamos la llamada al servidor para poner los literales para obtener también el cartel de la fecha
 	data={};
-	alert("Usuario.idioma"+Usuario.idioma);
 	data.idioma=Usuario.idioma;
+	alert(FechaFiesta);
 	data.FechaFiesta=FechaFiesta;
-	alert("idioma: "+Usuario.idioma);
 	jQuery.ajax({type: "POST",dataType: "json",url: ruta+"literales.php",data:data}).done(respuestaPonerLiterales);	
 }
 function respuestaPonerLiterales(response){
