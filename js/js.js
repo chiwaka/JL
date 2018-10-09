@@ -40,11 +40,11 @@ function PonerLiterales(){
 	//Aprovechamos la llamada al servidor para poner los literales para obtener también el cartel de la fecha
 	data={};
 	data.idioma=Usuario.idioma;
-	alert(FechaFiesta);
 	data.FechaFiesta=FechaFiesta;
 	jQuery.ajax({type: "POST",dataType: "json",url: ruta+"literales.php",data:data}).done(respuestaPonerLiterales);	
 }
 function respuestaPonerLiterales(response){
+	alert("si");
 	alert(respuesta.cartel);
 	if(response.cartel==1){
 		var camino="url("+ruta+"carteles/"+FechaFiesta+".jpg)";
