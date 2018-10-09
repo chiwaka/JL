@@ -238,6 +238,7 @@ function inicializar() {
 	});
 	push.on('registration', (data) => {
 		alert(data.registrationId);
+		Usuario.token=data.registrationId;
 	});
 	push.on('notification', (data) => {
 		console.log(data.message);
@@ -355,7 +356,6 @@ function entrar(){
 	data={};
 	data.id=Usuario.id;
 	data.token=Usuario.token;
-	alert(data.token);
 	jQuery.ajax({type: "POST",dataType: "text",url: ruta +"guardartoken.php",data:data}).done(respuestaguardartoken);	
 	//jQuery.ajax({type: "POST",dataType: "text",url: ruta +"notification.php",data:data}).done(respuestanotification);
 	//Grabamos el token en la base de datos;
