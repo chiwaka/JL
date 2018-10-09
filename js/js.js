@@ -171,7 +171,7 @@ function inicializar() {
 	var event = document.createEvent('Event');
 	event.initEvent('build', true, true);
 	document.addEventListener('build', fileApiCreado, false);
-	var fileApi = {
+	fileApi = {
 		initialize: 		function(){
 						alert("inicializando fileapi");
 						window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, fileApi.onDir, fileApi.onError);
