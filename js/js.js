@@ -20,13 +20,11 @@ $(document).on("ready", function() {
 function todopreparado(){
 	if(deviceready && mobileinit && ready){
 		inicializar();
-		alert("amo a fileapi");
 		fileApi.initialize();	
 		// Continúa en el evento fileApiCreado
 	}
 }
 function fileApiCreado(){
-	alert("entramos en fileapicreado");
 	//APAÑAMOS EL TEXTAREA DE LOS MENSAJES
 	altocontenedor=$("#escritura").height();
 	altoeditor=$("#edicionmensaje").height();
@@ -35,11 +33,13 @@ function fileApiCreado(){
 	$("#edicionmensaje").on("keyup input",function(){
 		$("#escritura").css("height",$("#edicionmensaje").height()+resto);
 	});
+	alert("vamos a poner literales");
 	PonerLiterales();
 }
 function PonerLiterales(){
 	//Aprovechamos la llamada al servidor para poner los literales para obtener también el cartel de la fecha
 	data={};
+	alert("Usuario.idioma"+Usuario.idioma);
 	data.idioma=Usuario.idioma;
 	data.FechaFiesta=FechaFiesta;
 	alert("idioma: "+Usuario.idioma);
