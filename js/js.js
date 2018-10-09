@@ -133,39 +133,7 @@ function MostrarPantallaPrincipal(){
 	$("#cover").fadeOut();
 }
 //**************************************************************************************************************
-// CONSTANTES GENERALES
-var discoteca={};
-discoteca.id=1; //Pachá;
-var FechaFiesta;
-var ruta="http://www.afassvalencia.es/android/flaspop/";
-var usuariosporpagina=30;
-var registroelemento=0;
-var otroUsuario={};	
-// CREAMOS LA VARIABLE USUARIO SIN INICIALIZAR GLOBAL
-var Usuario={};
-
-// OBTENEMOS LA FECHA DE LA FIESTA DEL SERVIDOR
-jQuery.ajax({type: "POST",dataType: "text",url: ruta+"fechafiesta.php"}).done(function(response){
-	FechaFiesta=response;	
-	alert(FechaFiesta);
-});		
-// CREACIÓN DE OBJETO FILEAPI PARA TRATAMIENTO DEL PLUGIN FILEAPI
-// Este objeto disparará un objeto cuando fileAPi.dir esté creado
-var event = document.createEvent('Event');
-event.initEvent('build', true, true);
-document.addEventListener('build', fileApiCreado, false);
-var fileApi = {
-	initialize: 		function(){
-					window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, fileApi.onDir, fileApi.onError);
-				},
-	onDir: 		function(directoryEntry) {
-					fileApi.dir = directoryEntry;
-					fileApi.dir.getFile("flaspop.pop", { create : false },Existe,Noexiste);
-				},
-	onError: 		function(err) {
-					alert(err.code);
-				},
-}
+// FUNCIONES QUE SE UTILIZARÁN EN EL FILEAPI
 function Existe(fileEntry){
 	// Tenemos que leer el fichero y asignar a Usuario.id su valor;
 	fileEntry.file(function(file) {
@@ -186,11 +154,43 @@ function respuestagrabarnoexiste(response){
 	fileApi.dir.getFile("flaspop.pop", { create : true }, function(fileentry){fileentry.createWriter(function(filewriter){filewriter.write(response);},fileApi.onError)},fileApi.onError);
 	document.dispatchEvent(event);
 }
+//***************************************************************************************************************
 // SE INICIALIZA LA PRIMERA PÁGINA
 $(document).on("pagecreate", "#principal", function(event){
 	
 });
 function inicializar() {
+	// CONSTANTES GENERALES
+	discoteca={};
+	discoteca.id=1; //Pachá;
+	ruta="http://www.afassvalencia.es/android/flaspop/";
+	usuariosporpagina=30;
+	registroelemento=0;
+	otroUsuario={};	
+	// CREAMOS LA VARIABLE USUARIO SIN INICIALIZAR GLOBAL
+	Usuario={};
+	// OBTENEMOS LA FECHA DE LA FIESTA DEL SERVIDOR
+	jQuery.ajax({type: "POST",dataType: "text",url: ruta+"fechafiesta.php"}).done(function(response){
+		FechaFiesta=response;	
+		alert(FechaFiesta);
+	});		
+	// CREACIÓN DE OBJETO FILEAPI PARA TRATAMIENTO DEL PLUGIN FILEAPI
+	// Este objeto disparará un objeto cuando fileAPi.dir esté creado
+	var event = document.createEvent('Event');
+	event.initEvent('build', true, true);
+	document.addEventListener('build', fileApiCreado, false);
+	var fileApi = {
+		initialize: 		function(){
+						window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, fileApi.onDir, fileApi.onError);
+					},
+		onDir: 		function(directoryEntry) {
+						fileApi.dir = directoryEntry;
+						fileApi.dir.getFile("flaspop.pop", { create : false },Existe,Noexiste);
+					},
+		onError: 		function(err) {
+						alert(err.code);
+					},
+	}
 	// INICIALIZAMOS AJAX
 	$.ajaxSetup({ cache:false });
 	// FASTCLICK
