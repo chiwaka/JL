@@ -52,9 +52,11 @@ function PonerLiterales(){
 	data={};
 	data.idioma=Usuario.idioma;
 	data.FechaFiesta=FechaFiesta;
+	alert(Usuario.idioma);
 	jQuery.ajax({type: "POST",dataType: "json",url: ruta+"literales.php",data:data}).done(respuestaPonerLiterales);	
 }
 function respuestaPonerLiterales(response){
+	alert(respuesta.cartel);
 	if(response.cartel==1){
 		var camino="url("+ruta+"carteles/"+FechaFiesta+".jpg)";
 	}else{
@@ -174,7 +176,6 @@ function inicializar() {
 	alert("vamos a ver la fecha fiesta");
 		jQuery.ajax({type: "POST",dataType: "text",async: false,url: ruta+"fechafiesta.php"}).done(function(response){
 		FechaFiesta=response;	
-		alert(FechaFiesta);
 	});		
 	// CREACIÓN DE OBJETO FILEAPI PARA TRATAMIENTO DEL PLUGIN FILEAPI
 	// Este objeto disparará un objeto cuando fileAPi.dir esté creado
