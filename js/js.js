@@ -241,6 +241,7 @@ function inicializar() {
 		Usuario.token=data.registrationId;
 	});
 	push.on('notification', (data) => {
+		alert(data.message);
 		console.log(data.message);
 		console.log(data.title);
 		console.log(data.count);
