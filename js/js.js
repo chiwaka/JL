@@ -952,6 +952,7 @@ function grabarfavoritos(){
 	jQuery.ajax({type: "POST",dataType: "json",url: ruta+"anadirafavoritos.php",data:data}).done(respuestagrabarfavoritos);	
 }
 function respuestagrabarfavoritos(response){
+	alert(response.id2);
 	$("#pensando").fadeOut();
 	$("#favoritoendetalles").show();
 	$("#añadirfavoritos").css("opacity","0.1");
