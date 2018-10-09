@@ -170,7 +170,8 @@ function inicializar() {
 	// CREAMOS LA VARIABLE USUARIO SIN INICIALIZAR GLOBAL
 	Usuario={};
 	// OBTENEMOS LA FECHA DE LA FIESTA DEL SERVIDOR
-	jQuery.ajax({type: "POST",dataType: "text",url: ruta+"fechafiesta.php"}).done(function(response){
+	alert("vamos a ver la fecha fiesta");
+		jQuery.ajax({type: "POST",dataType: "text",url: ruta+"fechafiesta.php"}).done(function(response){
 		FechaFiesta=response;	
 		alert(FechaFiesta);
 	});		
