@@ -90,7 +90,6 @@ function respuestaObtenerDatosPerfil(response){
 	$("#sexoliteral").text(response.sexoliteral);
 	$("#sexoliteral").attr("data-sexo",response.sexo);
 	Usuario.sexo=response.sexo;
-	alert(Usuario.sexo);
 	$("#fechadenacimiento").val(response.fechanacimiento);
 	$("#admitoliteral").text(response.buscoliteral);
 	$("#admitoliteral").attr("data-admito",response.busco);
@@ -115,7 +114,6 @@ function respuestaObtenerDatosPerfil(response){
 	$.each(megusta,function(i,val){
 		$("#megusta"+i).attr("checked",(response.megusta["megusta"+i]==1)?true : false);
 	});
-	alert("ha pasado perfil");
 	MostrarPantallaPrincipal()
 }
 function MostrarPantallaPrincipal(){
@@ -357,6 +355,7 @@ function entrar(){
 	data={};
 	data.id=Usuario.id;
 	data.token=Usuario.token;
+	alert(data.token);
 	jQuery.ajax({type: "POST",dataType: "text",url: ruta +"guardartoken.php",data:data}).done(respuestaguardartoken);	
 	//jQuery.ajax({type: "POST",dataType: "text",url: ruta +"notification.php",data:data}).done(respuestanotification);
 	//Grabamos el token en la base de datos;
@@ -437,10 +436,6 @@ function vertopflases(){
 	data.busco=Usuario.busco;
 	data.discoteca=discoteca.id;
 	data.FechaFiesta=FechaFiesta;
-	alert(data.sexo);
-		alert(data.busco);
-		alert(data.discoteca);
-		alert(data.fechafiesta);
 	jQuery.ajax({type: "POST",dataType: "json",url: ruta +"topflases.php",data:data}).done(respuestavertopflases);
 }
 function respuestavertopflases(response){
@@ -455,34 +450,6 @@ function respuestavertopflases(response){
 	$("#topscroll").html(cadena).promise().done(function(){
 		$("#contenido").css("background","");
 	});
-	/*
-	longitud=20*106;
-	//longitud=fotos.length * 106;
-	var cadena="<ul id=\"top\" style=\"position:relative;width:"+longitud+"px;margin-left:4px;\">";
-	$.each(response,function( indice,elemento ) {
-		cadena=cadena+"<li><figure class='post_image'><img src=\'"+elemento.foto+"\' style=\"width:100%;\" onclick=\"detalle("+elemento.id+")\"/></figure></li>";
-		new Image().src=elemento.foto;
-	}
-	cadena=cadena+"</ul>";
-	$("#topscroll").html(cadena).promise().done(function(){
-		$("#contenido").css("background","");
-	});
-	return;
-	/*
-	$.each(fotos,function( indice,foto ) {
-		cadena=cadena+"<li><figure class='post_image'><img src=\'"+foto+"\' style=\"width:100%;\" onclick=\"detalle($idd)\"/></figure></li>";
-		new Image().src=foto;
-	});
-	cadena=cadena+"</ul>";
-	$("#topscroll").html(cadena).promise().done(function(){
-		$("#contenido").css("background","");
-	});
-	return;
-
-	$("#topscroll").html(response).promise().done(function(){
-		$("#contenido").css("background","");
-	});
-	*/
 }
 function vermensajesgeneral(){
 	$("#pensando").fadeIn();
