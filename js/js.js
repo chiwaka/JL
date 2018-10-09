@@ -76,13 +76,9 @@ function respuestaPonerLiterales(response){
 function ObtenerDatosPerfil(){
 	data={};
 	data.id=Usuario.id;
-	alert("Usuario:"+data.id);	
 	data.idioma=Usuario.idioma;
-	alert("Idioma:"+data.idioma);		
 	data.discoteca=discoteca.id;
-	alert("Discoteca:"+data.discoteca);		
 	data.fechafiesta=FechaFiesta;
-	alert("FechaFiesta:"+data.fechafiesta);		
 	jQuery.ajax({type: "POST",dataType: "json",url: ruta+"obtenerperfil.php",data:data}).done(respuestaObtenerDatosPerfil);
 }
 function respuestaObtenerDatosPerfil(response){
@@ -94,6 +90,7 @@ function respuestaObtenerDatosPerfil(response){
 	$("#sexoliteral").text(response.sexoliteral);
 	$("#sexoliteral").attr("data-sexo",response.sexo);
 	Usuario.sexo=response.sexo;
+	alert(Usuario.sexo);
 	$("#fechadenacimiento").val(response.fechanacimiento);
 	$("#admitoliteral").text(response.buscoliteral);
 	$("#admitoliteral").attr("data-admito",response.busco);
