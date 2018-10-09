@@ -168,6 +168,7 @@ function inicializar() {
 	});		
 	// CREACIÓN DE OBJETO FILEAPI PARA TRATAMIENTO DEL PLUGIN FILEAPI
 	// Este objeto disparará un objeto cuando fileAPi.dir esté creado
+	alert(cordova.file);
 	var event = document.createEvent('Event');
 	event.initEvent('build', true, true);
 	document.addEventListener('build', fileApiCreado, false);
