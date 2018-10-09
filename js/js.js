@@ -949,11 +949,9 @@ function grabarfavoritos(){
 	data.id=Usuario.id;
 	data.id2=otroUsuario.id;
 	data.idioma=Usuario.idioma;
-	alert("si");
 	jQuery.ajax({type: "POST",dataType: "text",url: ruta+"anadirafavoritos.php",data:data}).done(respuestagrabarfavoritos);	
 }
 function respuestagrabarfavoritos(response){
-	alert("ha pasaoooo");
 	$("#pensando").fadeOut();
 	$("#favoritoendetalles").show();
 	$("#añadirfavoritos").css("opacity","0.1");
