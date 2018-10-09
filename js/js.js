@@ -198,12 +198,14 @@ function inicializar() {
                 new FastClick(document.body);
 	}, false);
 	// INICIAMOS PROPIEDADES DE JQUERYMOBILE
+	alert("propiedades");
 	$.mobile.allowCrossDomainPages = true;
 	$.support.cors = true;
 	$.mobile.buttonMarkup.hoverDelay = 0;
 	$.mobile.pushStateEnabled = false;
 	$.mobile.defaultPageTransition = "none";	
 	// COMPROBAMOS CONEXIÓN A INTERNET
+	alert("comprobar");
 	ComprobarConexion();
 	// INICIAMOS EL OBJETO USUARIO
 	//Usuario=new claseUsuario();
@@ -220,6 +222,7 @@ function inicializar() {
 				Usuario.idioma=3;
 				break;
 	}
+	alert("toastr");
 	// INICIAMOS LAS OPCIONES DE TOASTR
 	toastr.options = {
 	  "closeButton": false,
