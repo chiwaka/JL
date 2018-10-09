@@ -44,13 +44,13 @@ function PonerLiterales(){
 	jQuery.ajax({type: "POST",dataType: "json",url: ruta+"literales.php",data:data}).done(respuestaPonerLiterales);	
 }
 function respuestaPonerLiterales(response){
-	alert("si");
-	alert(respuesta.cartel);
+	alert(response.cartel);
 	if(response.cartel==1){
 		var camino="url("+ruta+"carteles/"+FechaFiesta+".jpg)";
 	}else{
 		var camino="url("+ruta+"carteles/general.jpg)";
 	}
+	alert(camino);
 	$("#contenido").css("background-image",camino);
 	$("#labelentrar").text(response.labelentrar);
 	$("#labelenviados").text(response.labelenviados);
