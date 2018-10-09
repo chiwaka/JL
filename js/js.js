@@ -6,18 +6,22 @@ var deviceready=false;
 var mobileinit=false;
 var ready=false;
 $(document).on("deviceready", function() {
+	alert("device");
 	deviceready=true;
 	todopreparado();
 });
 $(document).on("mobileinit", function() {
+	alert("mobileinit");
 	mobileinit=true;
 	todopreparado();
 });
 $(document).on("ready", function() {
+	alert("ready");
 	ready=true;
 	todopreparado();
 });
 function todopreparado(){
+	alert("preparado");
 	if(deviceready && mobileinit && ready){
 		inicializar();
 		fileApi.initialize();	
@@ -190,6 +194,7 @@ $(document).on("pagecreate", "#principal", function(event){
 	
 });
 function inicializar() {
+	alert("inicializar");
 	// INICIALIZAMOS AJAX
 	$.ajaxSetup({ cache:false });
 	// FASTCLICK
