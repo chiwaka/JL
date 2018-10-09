@@ -236,7 +236,9 @@ function inicializar() {
 	  "showMethod": "fadeIn",
 	  "hideMethod": "fadeOut"
 	}
+	alert(1);
 	camara.initialize();
+	alert(2);
 	const push = PushNotification.init({
 		android: {
 		},
@@ -261,6 +263,7 @@ function inicializar() {
 	push.on('error', (e) => {
 		console.log(e.message);
 	});
+	alert(3);
 }
 function ComprobarConexion() {
     if(navigator.connection.type==Connection.NONE){
