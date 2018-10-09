@@ -163,6 +163,7 @@ function inicializar() {
 	// CONSTANTES GENERALES
 	discoteca={};
 	discoteca.id=1; //Pachá;
+	FechaFiesta="";
 	ruta="http://www.afassvalencia.es/android/flaspop/";
 	usuariosporpagina=30;
 	registroelemento=0;
@@ -171,7 +172,7 @@ function inicializar() {
 	Usuario={};
 	// OBTENEMOS LA FECHA DE LA FIESTA DEL SERVIDOR
 	alert("vamos a ver la fecha fiesta");
-		jQuery.ajax({type: "POST",dataType: "text",url: ruta+"fechafiesta.php"}).done(function(response){
+		jQuery.ajax({type: "POST",dataType: "text",async: false,url: ruta+"fechafiesta.php"}).done(function(response){
 		FechaFiesta=response;	
 		alert(FechaFiesta);
 	});		
