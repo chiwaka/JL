@@ -127,19 +127,19 @@ function MostrarPantallaPrincipal(){
 //**************************************************************************************************************
 // FUNCIONES QUE SE UTILIZARÁN EN EL FILEAPI
 function Existe(fileEntry){
-	alert("Existe");
 	// Tenemos que leer el fichero y asignar a Usuario.id su valor;
 	fileEntry.file(function(file) {
 		var reader = new FileReader();
 		reader.onloadend = function(e) {
+			alert(this.result);
 			Usuario.id=this.result;
+			alert(Usuario.id);
 			document.dispatchEvent(event);
 	}
 	reader.readAsText(file);
 	});
 }
 function Noexiste(error){
-	alert("No Existe");
 	// Obtenermos un nuevo usuario y lo grabamos en el fichero flaspop.pop
 	jQuery.ajax({type: "POST",dataType: "text",url: "http://www.afassvalencia.es/android/flaspop/grabarnoexiste.php"}).done(respuestagrabarnoexiste);
 }
@@ -178,10 +178,8 @@ function inicializar() {
 						window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, fileApi.onDir, fileApi.onError);
 					},
 		onDir: 		function(directoryEntry) {
-						alert("entra en ondir");
 						fileApi.dir = directoryEntry;
 						fileApi.dir.getFile("flaspop.pop", { create : false },Existe,Noexiste);
-						alert("existe o no existe");
 					},
 		onError: 		function(err) {
 						alert(err.code);
