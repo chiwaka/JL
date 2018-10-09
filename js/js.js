@@ -131,9 +131,7 @@ function Existe(fileEntry){
 	fileEntry.file(function(file) {
 		var reader = new FileReader();
 		reader.onloadend = function(e) {
-			alert(this.result);
 			Usuario.id=this.result;
-			alert(Usuario.id);
 			document.dispatchEvent(event);
 	}
 	reader.readAsText(file);
@@ -170,7 +168,7 @@ function inicializar() {
 	});		
 	// CREACIÓN DE OBJETO FILEAPI PARA TRATAMIENTO DEL PLUGIN FILEAPI
 	// Este objeto disparará un objeto cuando fileAPi.dir esté creado
-	var event = document.createEvent('Event');
+	event = document.createEvent('Event');
 	event.initEvent('build', true, true);
 	document.addEventListener('build', fileApiCreado, false);
 	fileApi = {
