@@ -190,7 +190,6 @@ $(document).on("pagecreate", "#principal", function(event){
 	
 });
 function inicializar() {
-	alert("inicializar");
 	// INICIALIZAMOS AJAX
 	$.ajaxSetup({ cache:false });
 	// FASTCLICK
@@ -198,14 +197,12 @@ function inicializar() {
                 new FastClick(document.body);
 	}, false);
 	// INICIAMOS PROPIEDADES DE JQUERYMOBILE
-	alert("propiedades");
 	$.mobile.allowCrossDomainPages = true;
 	$.support.cors = true;
 	$.mobile.buttonMarkup.hoverDelay = 0;
 	$.mobile.pushStateEnabled = false;
 	$.mobile.defaultPageTransition = "none";	
 	// COMPROBAMOS CONEXIÓN A INTERNET
-	alert("comprobar");
 	ComprobarConexion();
 	// INICIAMOS EL OBJETO USUARIO
 	//Usuario=new claseUsuario();
@@ -222,7 +219,6 @@ function inicializar() {
 				Usuario.idioma=3;
 				break;
 	}
-	alert("toastr");
 	// INICIAMOS LAS OPCIONES DE TOASTR
 	toastr.options = {
 	  "closeButton": false,
@@ -240,9 +236,7 @@ function inicializar() {
 	  "showMethod": "fadeIn",
 	  "hideMethod": "fadeOut"
 	}
-	alert(1);
 	camara.initialize();
-	alert(2);
 	const push = PushNotification.init({
 		android: {
 		},
@@ -267,7 +261,6 @@ function inicializar() {
 	push.on('error', (e) => {
 		console.log(e.message);
 	});
-	alert(3);
 }
 function ComprobarConexion() {
     if(navigator.connection.type==Connection.NONE){
@@ -369,9 +362,7 @@ function entrar(){
 	$(".imagenmenu").css("opacity","1");
 	$("#contenido").css("background","url('./imagenes/await2.gif') no-repeat fixed center");
 	$("#topflases").css("display","block");
-	alert("vamos a ver topflases");
 	vertopflases();
-	alert("pasamos top topflases");
 	data={};
 	data.id=Usuario.id;
 	data.token=Usuario.token;
@@ -454,7 +445,12 @@ function vertopflases(){
 	data.sexo=Usuario.sexo;
 	data.busco=Usuario.busco;
 	data.discoteca=discoteca.id;
-	data.FechaFiesta=FechaFiesta;	
+	data.FechaFiesta=FechaFiesta;
+	alert("vamos a php top");
+	alert(data.sexo);
+		alert(data.busco);
+		alert(data.discoteca);
+		alert(data.fechafiesta);
 	jQuery.ajax({type: "POST",dataType: "json",url: ruta +"topflases.php",data:data}).done(respuestavertopflases);
 }
 function respuestavertopflases(response){
