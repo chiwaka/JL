@@ -25,26 +25,15 @@ function todopreparado(){
 	}
 }
 function fileApiCreado(){
+	alert("entramos en fileapicreado");
 	//APAÑAMOS EL TEXTAREA DE LOS MENSAJES
 	altocontenedor=$("#escritura").height();
 	altoeditor=$("#edicionmensaje").height();
 	var resto=altocontenedor-altoeditor;
 	// Y APAÑAMOS LA ALTURA DE LA PAGINA DE MENSAJES
-	//var alto=$( window ).height();
-	//alert(alto);
-	//$("#contenidomensajes").css("height",$(window).height()-150);
 	$("#edicionmensaje").on("keyup input",function(){
 		$("#escritura").css("height",$("#edicionmensaje").height()+resto);
 	});
-	/*
-	jQuery.each(jQuery('textarea[data-autoresize]'), function() {
-		var offset = this.offsetHeight - this.clientHeight;
-		var resizeTextarea = function(el) {
-			jQuery(el).css('height', 'auto').css('height', el.scrollHeight + offset);
-		};
-		jQuery(this).on('keyup input', function() { resizeTextarea(this); }).removeAttr('data-autoresize');
-	});
-	*/
 	PonerLiterales();
 }
 function PonerLiterales(){
@@ -52,7 +41,7 @@ function PonerLiterales(){
 	data={};
 	data.idioma=Usuario.idioma;
 	data.FechaFiesta=FechaFiesta;
-	alert(Usuario.idioma);
+	alert("idioma: "+Usuario.idioma);
 	jQuery.ajax({type: "POST",dataType: "json",url: ruta+"literales.php",data:data}).done(respuestaPonerLiterales);	
 }
 function respuestaPonerLiterales(response){
@@ -173,7 +162,6 @@ function inicializar() {
 	// CREAMOS LA VARIABLE USUARIO SIN INICIALIZAR GLOBAL
 	Usuario={};
 	// OBTENEMOS LA FECHA DE LA FIESTA DEL SERVIDOR
-	alert("vamos a ver la fecha fiesta");
 		jQuery.ajax({type: "POST",dataType: "text",async: false,url: ruta+"fechafiesta.php"}).done(function(response){
 		FechaFiesta=response;	
 	});		
@@ -450,7 +438,6 @@ function vertopflases(){
 	data.busco=Usuario.busco;
 	data.discoteca=discoteca.id;
 	data.FechaFiesta=FechaFiesta;
-	alert("vamos a php top");
 	alert(data.sexo);
 		alert(data.busco);
 		alert(data.discoteca);
