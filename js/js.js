@@ -147,6 +147,7 @@ var Usuario={};
 // OBTENEMOS LA FECHA DE LA FIESTA DEL SERVIDOR
 jQuery.ajax({type: "POST",dataType: "text",url: ruta+"fechafiesta.php"}).done(function(response){
 	FechaFiesta=response;	
+	alert(FechaFiesta);
 });		
 // CREACIÓN DE OBJETO FILEAPI PARA TRATAMIENTO DEL PLUGIN FILEAPI
 // Este objeto disparará un objeto cuando fileAPi.dir esté creado
