@@ -282,6 +282,7 @@ camara = {
     // cuando la camara se cierre se ejecutara esta funcion
     // y usaremos "imageData" como src del tag <img>
    //$("#imagencrop").attr('src', "data:image/jpeg;base64," + imageData);	  
+   alert(imageData);
    $("#imagencrop").attr('src', imageData);	  	  
    quitardedondefoto();	  
    picture = $("#imagencrop");
