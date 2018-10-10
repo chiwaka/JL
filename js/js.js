@@ -237,7 +237,6 @@ function inicializar() {
 		windows: {}
 	});
 	push.on('registration', (data) => {
-		alert(data.registrationId);
 		Usuario.token=data.registrationId;
 	});
 	push.on('notification', (data) => {
@@ -363,10 +362,9 @@ function entrar(){
 	
 }
 function respuestaguardartoken(response){
-	alert(response);
 }
 function respuestanotification(response){
-	alert(response);
+	//alert(response);
 }
 // ALMACENAMIENTO DE LA PAGINA ANTERIOR
 function GuardarPaginaAnterior(NuevaPagina){
@@ -440,7 +438,6 @@ function vertopflases(){
 	jQuery.ajax({type: "POST",dataType: "json",url: ruta +"topflases.php",data:data}).done(respuestavertopflases);
 }
 function respuestavertopflases(response){
-	alert("respuestatopflases");
 	longitud=response.resultado.length*106;
 	var cadena="<ul id=\"top\" style=\"position:relative;width:"+longitud+"px;margin-left:4px;\">";
 	$.each(response.resultado,function( indice,elemento ) {
