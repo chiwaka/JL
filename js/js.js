@@ -265,7 +265,7 @@ camara = {
   initialize: function() {
     camara.defaults = {
       quality : 100,
-      destinationType : Camera.DestinationType.DATA_URL,
+      destinationType : Camera.DestinationType.FILE_URI,
       sourceType : Camera.PictureSourceType.CAMERA,
       allowEdit : false,
       encodingType: Camera.EncodingType.JPEG,
@@ -281,7 +281,8 @@ camara = {
   onDataUrlSuccess: function(imageData) {
     // cuando la camara se cierre se ejecutara esta funcion
     // y usaremos "imageData" como src del tag <img>
-   $("#imagencrop").attr('src', "data:image/jpeg;base64," + imageData);	  
+   //$("#imagencrop").attr('src', "data:image/jpeg;base64," + imageData);	  
+   $("#imagencrop").attr('src', imageData);	  	  
    quitardedondefoto();	  
    picture = $("#imagencrop");
    $("#paginaguillotine").fadeIn("slow",function(){
