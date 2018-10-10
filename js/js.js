@@ -225,7 +225,20 @@ function inicializar() {
 	  "showMethod": "fadeIn",
 	  "hideMethod": "fadeOut"
 	}
-	camara.initialize();
+	/*
+	//ESTABLECEMOS LAS OPCIONES POR DEFECTO DE LA CAMARA
+	camara.defaults = {
+		quality : 100,
+		destinationType : Camera.DestinationType.DATA_URL,
+		sourceType : Camera.PictureSourceType.CAMERA,
+		allowEdit : false,
+		encodingType: Camera.EncodingType.JPEG,
+		//popoverOptions: CameraPopoverOptions,
+		saveToPhotoAlbum: false,
+		correctOrientation: true
+	}
+	//camara.initialize();
+	*/
 	const push = PushNotification.init({
 		android: {
 		},
@@ -261,15 +274,16 @@ function ComprobarConexion() {
     }
     return true;
 }
+/*
 camara = {
   initialize: function() {
     camara.defaults = {
       quality : 100,
-      destinationType : Camera.DestinationType.FILE_URI,
+      destinationType : Camera.DestinationType.DATA_URL,
       sourceType : Camera.PictureSourceType.CAMERA,
       allowEdit : false,
       encodingType: Camera.EncodingType.JPEG,
-      popoverOptions: CameraPopoverOptions,
+      //popoverOptions: CameraPopoverOptions,
       saveToPhotoAlbum: false,
       correctOrientation: true
     }
@@ -281,9 +295,10 @@ camara = {
   onDataUrlSuccess: function(imageData) {
     // cuando la camara se cierre se ejecutara esta funcion
     // y usaremos "imageData" como src del tag <img>
-   //$("#imagencrop").attr('src', "data:image/jpeg;base64," + imageData);	  
-   alert(imageData);
-   $("#imagencrop").attr('src', imageData);	  	  
+   $("#imagencrop").attr('src', "data:image/jpeg;base64," + imageData);	  
+
+   //var image=document.getElementById('imagencrop');
+   //image.src=imageData;
    quitardedondefoto();	  
    picture = $("#imagencrop");
    $("#paginaguillotine").fadeIn("slow",function(){
@@ -301,6 +316,7 @@ camara = {
 	// PONER AQUÍ LO QUE QUEREMOS QUE HAGA SI NO SE HA SELECCIONADO UNA IMAGEN
   }
 };
+*/
 function BotonAtras(){
 	switch($(":mobile-pagecontainer" ).pagecontainer("getActivePage").attr("id")){
 		case "principal" :
@@ -518,10 +534,24 @@ function respuestagrabarmensaje(response){
 	$("#contenidomensajes").append(cadena);
 	$("#contenidomensajes").animate({ scrollTop: $(document).height()}, 600);
 }
+function encodeImagetoBase64(element) {
+	  var canvas = document.createElement("canvas");
+          alert(element.width);
+	  canvas.width = element.width;
+          canvas.height = element.height;
+          var ctx = canvas.getContext("2d");
+          ctx.drawImage(element, 0, 0);
+	  var fullQuality = canvas.toDataURL('image/jpeg', 1.0);
+	return fullQuality;
+}
 function subirfoto(){
 	$("#pensando").fadeIn();
 	data = $("#imagencrop").guillotine('getData');
 	data.cadenafoto=base64;
+	//var element=document.getElementById("imagencrop");
+	//data.cadenafoto=encodeImagetoBase64(element);
+	//data.cadenafoto=data.cadenafoto.replace("data:image/jpeg;base64,","");
+	//alert(data.cadenafoto);
 	data.id=Usuario.id;
 	jQuery.ajax({type: "POST",dataType: "text",url: ruta+"subirfoto.php",data: data}) .done(respuestasubirfoto);
 }
@@ -574,12 +604,12 @@ $(document).on("pagecreate", "#perfil", function(event){
 		quitardedondefoto();
 	});
 	$('#labelcamara').on('click', function(){
-		camara.defaults.sourceType = Camera.PictureSourceType.CAMERA;
-		sacofoto();
+		//camara.defaults.sourceType = Camera.PictureSourceType.CAMERA;
+		sacofoto(1);
 	});	
 	$('#labelgaleria').on('click', function(){
-		camara.defaults.sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
-		sacofoto();
+		//camara.defaults.sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
+		sacofoto(2);
 	});
 	$("#pensamiento").keyup(function(){
 		$("#maximopensamiento").text(150-($("#pensamiento").val().length));
@@ -587,9 +617,15 @@ $(document).on("pagecreate", "#perfil", function(event){
 	});
 	$("#pensando").fadeOut();
 });
-function sacofoto(){
+function sacofoto(tipo){
 	quitardedondefoto();	  
-	navigator.camera.getPicture(Exito, camara.onError,camara.defaults);
+	if(tipo==1){
+		navigator.camera.getPicture(Exito, Fracaso,{ quality: 100, destinationType: Camera.DestinationType.DATA_URL,sourceType : Camera.PictureSourceType.CAMERA,correctOrientation: true});
+	}else if(tipo==2){
+		navigator.camera.getPicture(Exito, Fracaso,{ quality: 100, destinationType: Camera.DestinationType.DATA_URL,sourceType : Camera.PictureSourceType.PHOTOLIBRARY,correctOrientation: true});
+	}
+	//navigator.camera.getPicture(Exito, camara.onError,camara.defaults);
+	
 }
 var base64;
 function Exito(imageData){
@@ -597,6 +633,9 @@ function Exito(imageData){
 	picture = $('#imagencrop');  
 	picture.guillotine("remove");
 	$("#imagencrop").attr('src', "data:image/jpeg;base64," + imageData);	  
+	$("#imagencrop").src=imageData;
+	//image=document.getElementById("imagencrop");
+	//image.src=imageData;
 	quitardedondefoto();	  
 	$("#paginaguillotine").fadeIn("slow",function(){
 		picture = $('#imagencrop');  
@@ -604,6 +643,9 @@ function Exito(imageData){
 		picture.guillotine("fit");
 	});	
 }
+function Fracaso(){
+	
+};
 $(document).on("pageshow", "#perfil", function(event){
 	$("#pensando").fadeOut();
 	$("#perfil").animate({ scrollTop: 0 }, 600);
