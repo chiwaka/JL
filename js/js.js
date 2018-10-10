@@ -262,7 +262,7 @@ function ComprobarConexion() {
     }
     return true;
 }
-var camara = {
+camara = {
   initialize: function() {
     camara.defaults = {
       quality : 100,
