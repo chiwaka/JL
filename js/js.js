@@ -51,6 +51,10 @@ function respuestaPonerLiterales(response){
 	literales.si=response.si;
 	literales.no=response.no;
 	literales.añadirafavoritospregunta=response.añadirafavoritospregunta;
+	literales.leenviasteunflas=response.leenviasteunflas;
+	literales.teenviounflas=response.teenviounflas;
+	literales.elflashasidoenviado=response.elflashasidoenviado;
+	//Cartel del dia
 	$("#contenido").css("background-image",camino);
 	$("#labelentrar").text(response.labelentrar);
 	$("#labelenviados").text(response.labelenviados);
@@ -260,6 +264,7 @@ function inicializar() {
 	});
 	push.on('notification', (data) => {
 		alert(data.message);
+		alert(data.foto);
 		console.log(data.message);
 		console.log(data.title);
 		console.log(data.count);
@@ -1052,10 +1057,11 @@ function guardarflas(){
 function respuestaguardarflas(response){
 	$("#mensajeflas").show();
 	$("#enviarflas").css("opacity","0.1");
+	$("#cadena"+otroUsuario.id).text(literales.leenviasteunflas);
 	var fenviados=$("#numerodeflasesenviados").text();
 	$("#numerodeflasesenviados").text(parseInt(fenviados)+1);
 	$("#pensando").fadeOut(); 
-	toastr.success("El Flas ha sido enviado","OK");
+	toastr.success(literales.elflashasidoenviado,"OK");
 }
 function introducirnombre(){
       $('#inputintroducirnombre').on("keydown",function(event){
