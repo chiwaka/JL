@@ -48,6 +48,9 @@ function respuestaPonerLiterales(response){
 	}else{
 		var camino="url("+ruta+"carteles/general.jpg)";
 	}
+	literales.si=response.si;
+	literales.no=response.no;
+	literales.añadirafavoritospregunta=response.añadirafavoritospregunta;
 	$("#contenido").css("background-image",camino);
 	$("#labelentrar").text(response.labelentrar);
 	$("#labelenviados").text(response.labelenviados);
@@ -149,6 +152,7 @@ $(document).on("pagecreate", "#principal", function(event){
 });
 function inicializar() {
 	// CONSTANTES GENERALES
+	literales={};
 	discoteca={};
 	discoteca.id=1; //Pachá;
 	FechaFiesta="";
@@ -208,6 +212,8 @@ function inicializar() {
 				Usuario.idioma=3;
 				break;
 	}
+	// CONTROLAMOS SI SE PIERDA LA CONEXIÓN A INTERNET
+	document.addEventListener("offline", ComprobarConexion, false);
 	// INICIAMOS LAS OPCIONES DE TOASTR
 	toastr.options = {
 	  "closeButton": false,
@@ -374,6 +380,7 @@ function entrar(){
 	data={};
 	data.id=Usuario.id;
 	data.token=Usuario.token;
+	data.plataforma=device.platform;
 	jQuery.ajax({type: "POST",dataType: "text",url: ruta +"guardartoken.php",data:data}).done(respuestaguardartoken);	
 	//jQuery.ajax({type: "POST",dataType: "text",url: ruta +"notification.php",data:data}).done(respuestanotification);
 	//Grabamos el token en la base de datos;
@@ -546,6 +553,9 @@ function encodeImagetoBase64(element) {
 }
 function subirfoto(){
 	$("#pensando").fadeIn();
+	toastr.options.timeOut = 0;
+        toastr.options.extendedTimeOut = 0;
+	toastr.info("Subiendo foto al servidor");
 	data = $("#imagencrop").guillotine('getData');
 	data.cadenafoto=base64;
 	//var element=document.getElementById("imagencrop");
@@ -561,6 +571,9 @@ function respuestasubirfoto(respuesta){
 	$("#fotoperfil").attr("src",ruta+"fotosperfiles/"+Usuario.id+".jpg?ver="+n);
 	$("#paginaguillotine").hide();
 	$("#pensando").fadeOut();
+	toastr.options.timeOut = 3000;
+        toastr.options.extendedTimeOut = 1000;
+	toastr.clear();
 	return;
 	$("#pensando").fadeOut("slow",function(){
 		$('#thepicture').guillotine('remove');
@@ -568,6 +581,7 @@ function respuestasubirfoto(respuesta){
 		//$("#pagina2").fadeIn("slow");
 		//paginaactual="pagina2";
 	});	
+	
 	//$("#fotoperfil").attr("src",ruta+"fotosperfiles/"+Usuario.id+".jpg?ver="+n);
 }
 $(document).on("pagecreate", "#perfil", function(event){
@@ -934,12 +948,12 @@ function añadirfavoritos(){
 		//type: "question",
 		padding:"10px",
 		title: $("#labeldetalles").text(),
-		text: "¿AÑADIR A FAVORITOS?",
+		text: literales.añadirafavoritospregunta,
 		imageUrl: $("#imagendetalles").attr("src"),
 		imageWidth: "80%",
 		showCancelButton: true,
-		confirmButtonText: "SI",
-		cancelButtonText: "NO",
+		confirmButtonText: literales.si,
+		cancelButtonText: literales.no,
 		reverseButtons: true,
 		allowOutsideClick: false,
 		backdrop: "rgba(100,100,100,0.85)",
