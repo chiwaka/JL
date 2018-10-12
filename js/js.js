@@ -263,6 +263,26 @@ function inicializar() {
 		Usuario.token=data.registrationId;
 	});
 	push.on('notification', (data) => {
+		swal({
+			//type: "question",
+			padding:"10px",
+			title: $("#labeldetalles").text(),
+			text: "HAS RECIBIDO UN FLAS",
+			imageUrl: ruta+"fotosperfiles/"+data.additionalData.foto,
+			imageWidth: "80%",
+			showCancelButton: true,
+			confirmButtonText: literales.si,
+			cancelButtonText: literales.no,
+			reverseButtons: true,
+			allowOutsideClick: false,
+			backdrop: "rgba(100,100,100,0.85)",
+			height: "25%",
+		}).then((result) => {
+			if(result.value){
+				grabarfavoritos();
+			}	
+		});
+		/*
 		alert(data.message);
 		alert(data.additionalData.foto);
 		alert(data.additionalData["foto"]);
@@ -273,6 +293,7 @@ function inicializar() {
 		console.log(data.sound);
 		console.log(data.image);
 		console.log(data.additionalData);
+		*/
 	});
 	push.on('error', (e) => {
 		console.log(e.message);
