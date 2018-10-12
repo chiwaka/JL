@@ -264,6 +264,7 @@ function inicializar() {
 	});
 	push.on('notification', (data) => {
 		alert(data.message);
+		alert(data.additionalData.foto);
 		alert(data.additionalData["foto"]);
 		alert(data.additionalData);
 		console.log(data.message);
