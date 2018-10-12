@@ -269,7 +269,7 @@ function inicializar() {
 			title: $("#labeldetalles").text(),
 			text: "HAS RECIBIDO UN FLAS",
 			imageUrl: ruta+"fotosperfiles/"+data.additionalData.foto,
-			imageWidth: "80%",
+			imageWidth: "90%",
 			showCancelButton: true,
 			confirmButtonText: literales.si,
 			cancelButtonText: literales.no,
