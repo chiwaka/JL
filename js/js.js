@@ -93,6 +93,7 @@ function respuestaObtenerDatosPerfil(response){
 	$("#numerodeflasesrecibidos").html(response.recibidos);
 	$("#numerodeflaspops").html(response.flaspops);
 	$("#nombreusuario").val(response.nombre);
+	Usuario.nombre=response.nombre;
 	$("#pensamiento").val(response.frase);
 	$("#sexoliteral").text(response.sexoliteral);
 	$("#sexoliteral").attr("data-sexo",response.sexo);
@@ -266,11 +267,11 @@ function inicializar() {
 		swal({
 			//type: "question",
 			padding:"10px",
-			title: $("#labeldetalles").text(),
-			text: "HAS RECIBIDO UN FLAS",
+			title: data.additionalData.nombre,
+			text: literales.teenviounflas;
 			imageUrl: ruta+"fotosperfiles/"+data.additionalData.foto,
-			imageWidth: "80%",
-			showCancelButton: true,
+			imageWidth: "90%",
+			showCancelButton: false,
 			confirmButtonText: literales.si,
 			cancelButtonText: literales.no,
 			reverseButtons: true,
