@@ -276,7 +276,7 @@ function inicializar() {
 			imageWidth: "90%",
 			showCancelButton: false,
 			confirmButtonText: literales.si,
-			cancelButtonText: literales.no,
+			cancelButtonText: "OK",
 			reverseButtons: true,
 			allowOutsideClick: false,
 			backdrop: "rgba(100,100,100,0.85)",
