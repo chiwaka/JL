@@ -264,7 +264,7 @@ function inicializar() {
 		Usuario.token=data.registrationId;
 	});
 	push.on('notification', (data) => {
-		navigator.vibrate1000);
+		navigator.vibrate(1000);
 		swal({
 			//type: "question",
 			padding:"10px",
