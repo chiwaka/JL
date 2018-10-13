@@ -268,14 +268,10 @@ function inicializar() {
 			//type: "question",
 			padding:"10px",
 			title: data.additionalData.nombre,
-			text: literales.teenviounflas;
+			text: literales.teenviounflas,
 			imageUrl: ruta+"fotosperfiles/"+data.additionalData.foto,
 			imageWidth: "90%",
-<<<<<<< HEAD
 			showCancelButton: false,
-=======
-			showCancelButton: true,
->>>>>>> 4dbd2e5e886e6d6b3ceb34d158636efe6308938c
 			confirmButtonText: literales.si,
 			cancelButtonText: literales.no,
 			reverseButtons: true,
