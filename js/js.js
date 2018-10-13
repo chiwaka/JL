@@ -265,6 +265,8 @@ function inicializar() {
 	});
 	push.on('notification', (data) => {
 		navigator.vibrate(1000);
+		var frecibidos=$("#numerodeflasesrecibidos").text();
+		$("#numerodeflasesrecibidos").text(parseInt(frecibidos)+1);
 		swal({
 			//type: "question",
 			padding:"10px",
