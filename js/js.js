@@ -421,7 +421,7 @@ function entrar(){
 			var frecibidos=$("#numerodeflasesrecibidos").text();
 			$("#numerodeflasesrecibidos").text(parseInt(frecibidos)+1);
 		}
-		aviso(data.additionalData.nombre,foto,textonotificacion);
+		aviso(data.additionalData.nombre,data.additionalData.foto,textonotificacion);
 		/*
 		swal({
 			//type: "question",
