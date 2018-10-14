@@ -385,7 +385,12 @@ function entrar(){
 	});
 	push.on('registration', (data) => {
 		Usuario.token=data.registrationId;
-	});
+		data={};
+		data.id=Usuario.id;
+		data.token=Usuario.token;
+		data.plataforma=device.platform;	
+		jQuery.ajax({type: "POST",dataType: "text",url: ruta +"guardartoken.php",data:data}).done(respuestaguardartoken);	
+		});
 	push.on('notification', (data) => {
 		var textonotificacion="";
 		navigator.vibrate(1000);
@@ -436,11 +441,7 @@ function entrar(){
 	$("#contenido").css("background","url('./imagenes/await2.gif') no-repeat fixed center");
 	$("#topflases").css("display","block");
 	vertopflases();
-	data={};
-	data.id=Usuario.id;
-	data.token=Usuario.token;
-	data.plataforma=device.platform;
-	jQuery.ajax({type: "POST",dataType: "text",url: ruta +"guardartoken.php",data:data}).done(respuestaguardartoken);	
+	
 	//jQuery.ajax({type: "POST",dataType: "text",url: ruta +"notification.php",data:data}).done(respuestanotification);
 	//Grabamos el token en la base de datos;
 }
