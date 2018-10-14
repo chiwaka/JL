@@ -371,7 +371,29 @@ function BotonAtras(){
 function informacion(){
  $( ":mobile-pagecontainer" ).pagecontainer( "change", "informacion.html");
 }
-
+vecesaviso=0;
+function aviso(nombre,foto,texto){
+	vecesaviso=vecesaviso+1;
+	var tamañofoto=($( window ).width() *90/100)-(18*2);
+	var img=new Image;
+	img.src=ruta+"fotosperfiles/342.jpg";
+	var cadena=`	<div id="avisofondo${vecesaviso}" style="position:absolute;top:8%;left:5%;width:90%;height:84%;background-color:white;border-radius:10px;padding:18px;z-index:999">
+					<img src="${ruta}fotosperfiles/${foto}" style="width:100%;height:${tamañofoto}px;" onclick="event.preventDefault();alert('si');"/>
+					<p style="width:100%;text-align:center;font-weight:bold;font-size:2rem;">${nombre}</p>
+					<p style="width:100%;text-align:center;">${texto}</p>
+				</div>`	
+	$(document.body).append(cadena);
+	$("#fondoaviso").css("display","block");
+	$("#avisofondo"+vecesaviso).on("swiperight",function(){
+		$("#avisofondo"+vecesaviso).animate({left:"+="+($(window).width())},100,function(){
+			if(vecesaviso==1){
+				$("#fondoaviso").css("display","none");
+			}
+			$("#avisofondo"+vecesaviso).remove();
+			vecesaviso=vecesaviso-1;
+		});
+	});
+}
 function entrar(){
 	const push = PushNotification.init({
 		android: {
@@ -399,6 +421,8 @@ function entrar(){
 			var frecibidos=$("#numerodeflasesrecibidos").text();
 			$("#numerodeflasesrecibidos").text(parseInt(frecibidos)+1);
 		}
+		aviso(data.additionalData.nombre,foto,textonotificacion);
+		/*
 		swal({
 			//type: "question",
 			padding:"10px",
@@ -418,6 +442,7 @@ function entrar(){
 				grabarfavoritos();
 			}	
 		});
+		
 		/*
 		alert(data.message);
 		alert(data.additionalData.foto);
