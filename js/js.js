@@ -373,21 +373,7 @@ function informacion(){
 }
 
 function entrar(){
-	document.addEventListener("backbutton", BotonAtras, true);
-	$("#entrar").css("display","none");
-	$("#pie").css("visibility","visible");
-	$(".imagenmenu").css("opacity","1");
-	$("#contenido").css("background","url('./imagenes/await2.gif') no-repeat fixed center");
-	$("#topflases").css("display","block");
-	vertopflases();
-	data={};
-	data.id=Usuario.id;
-	data.token=Usuario.token;
-	data.plataforma=device.platform;
-	jQuery.ajax({type: "POST",dataType: "text",url: ruta +"guardartoken.php",data:data}).done(respuestaguardartoken);	
-	//jQuery.ajax({type: "POST",dataType: "text",url: ruta +"notification.php",data:data}).done(respuestanotification);
-	//Grabamos el token en la base de datos;
-		const push = PushNotification.init({
+	const push = PushNotification.init({
 		android: {
 		},
 		ios: {
@@ -443,7 +429,20 @@ function entrar(){
 	push.on('error', (e) => {
 		console.log(e.message);
 	});
-	
+	document.addEventListener("backbutton", BotonAtras, true);
+	$("#entrar").css("display","none");
+	$("#pie").css("visibility","visible");
+	$(".imagenmenu").css("opacity","1");
+	$("#contenido").css("background","url('./imagenes/await2.gif') no-repeat fixed center");
+	$("#topflases").css("display","block");
+	vertopflases();
+	data={};
+	data.id=Usuario.id;
+	data.token=Usuario.token;
+	data.plataforma=device.platform;
+	jQuery.ajax({type: "POST",dataType: "text",url: ruta +"guardartoken.php",data:data}).done(respuestaguardartoken);	
+	//jQuery.ajax({type: "POST",dataType: "text",url: ruta +"notification.php",data:data}).done(respuestanotification);
+	//Grabamos el token en la base de datos;
 }
 function respuestaguardartoken(response){
 }
