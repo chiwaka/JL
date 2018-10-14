@@ -56,7 +56,7 @@
 				<img id="menuverpaginabusqueda" class="imagenmenu" style="width:30px;opacity:0.2;" src="imagenes/buscar.png" onclick="verpaginabusqueda();" />
 				<img id="menuverpaginaperfil" class="imagenmenu" style="width:30px;opacity:0.2" src="imagenes/configurar4.png" onclick="verpaginaperfil();"/>
 				<img class="imagenmenu" style="width:30px;opacity:0.2" src="imagenes/mensajes.png" onclick="vermensajesgeneral();"/>
-				<img class="imagenmenu"  style="width:30px;opacity:0.2" src="imagenes/informacion2.png" /></a>
+				<img class="imagenmenu"  style="width:30px;opacity:0.2" src="imagenes/informacion2.png" onclick="borrar();"/></a>
 			</div>
 		</div>
 		<div id="entrar" class="w100 h60 bg100 flexrow" style="position:absolute;bottom:0;z-index:10;">
@@ -146,18 +146,18 @@
 				</div>
 			</div>
 			<div class="w85 centrado">
-				<p class="center" style="font-size:12px;font-style:italic;margin-top:14px !important;">Pulsa en la imagen para cambiar la foto</p>
+				<p class="center" style="font-size:14px;font-style:italic;margin-top:14px !important;">Pulsa en la imagen para cambiar la foto</p>
 			</div>
 			<div class="raya"></div>
 			<div class="w85 centrado" onclick="$('#nombreusuario').trigger('focus');">
 				<label class="titulo" id="labelnombre">Nombre</label>
-				<p class="titulo" style="font-size:12px;text-decoration:italic;margin-top:0 !important">(Max. 10 caracteres)</p>
+				<p class="titulo" style="font-size:14px;text-decoration:italic;margin-top:0 !important">(Max. 10 caracteres)</p>
 				<input type="text" id="nombreusuario" data-role="none" class="limpio w100" maxlength="10" style="margin-bottom:0px !important;" value="" /> 
 			</div>
 			<div class="raya"></div>
 			<div class="w85 centrado" onclick="$('#pensamiento').trigger('focus');">
 				<label class="titulo" id="labelunafrase"></label>
-				<p class="titulo" style="font-size:12px;text-decoration:italic;margin-top:0 !important">(Max. <span id="maximopensamiento">150</span> caracteres)</p>
+				<p class="titulo" style="font-size:14px;text-decoration:italic;margin-top:0 !important">(Max. <span id="maximopensamiento">150</span> caracteres)</p>
 				<textarea class="llimpio bg200" id="pensamiento" maxlength="150" rows="7" data-role="none" style="text-transform:none;margin-top:20px;width:100%;"></textarea>
 			</div>
 			<div class="raya"></div>	

@@ -264,14 +264,18 @@ function inicializar() {
 		Usuario.token=data.registrationId;
 	});
 	push.on('notification', (data) => {
+		var textonotificacion="";
 		navigator.vibrate(1000);
-		var frecibidos=$("#numerodeflasesrecibidos").text();
-		$("#numerodeflasesrecibidos").text(parseInt(frecibidos)+1);
+		if(data.additionalData.tipo=="FLAS"){
+			textonotificacion=literales.teenviounflas;
+			var frecibidos=$("#numerodeflasesrecibidos").text();
+			$("#numerodeflasesrecibidos").text(parseInt(frecibidos)+1);
+		}
 		swal({
 			//type: "question",
 			padding:"10px",
 			title: data.additionalData.nombre,
-			text: literales.teenviounflas,
+			text: textonotificacion,
 			imageUrl: ruta+"fotosperfiles/"+data.additionalData.foto,
 			imageWidth: "90%",
 			showCancelButton: false,
@@ -301,6 +305,28 @@ function inicializar() {
 	});
 	push.on('error', (e) => {
 		console.log(e.message);
+	});
+}
+function borrar(){
+	swal({
+		//type: "question",
+		padding:"10px",
+		html:
+			"<img style=\"width:90%;\" src=\""+ruta+"fotosperfiles/15.jpg\" onclick=\"alert('si');\" /><p style=\"font-weight:bold;\">ELNOMBRE</p><p>Te envió un Flas</p>",
+		//text: literales.teenviounflas,
+		//imageUrl: ruta+"fotosperfiles/"+data.additionalData.foto,
+		//imageWidth: "90%",
+		showCancelButton: true,
+		showConfirmButton: false,
+		cancelButtonText: "OK",
+		cancelButtonColor: "#3085d6",
+		allowOutsideClick: false,
+		backdrop: "rgba(100,100,100,0.85)",
+		height: "25%",
+	}).then((result) => {
+		if(result.value){
+			grabarfavoritos();
+		}	
 	});
 }
 function ComprobarConexion() {
@@ -1075,6 +1101,7 @@ function guardarflas(){
 	$("#pensando").fadeIn();
 	var data={};
 	data.id=Usuario.id;
+	data.nombre=Usuario.nombre;
 	data.id2=otroUsuario.id;
 	data.idioma=Usuario.idioma;
 	data.discoteca=discoteca.id;
