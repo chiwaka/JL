@@ -250,62 +250,7 @@ function inicializar() {
 	}
 	//camara.initialize();
 	*/
-	const push = PushNotification.init({
-		android: {
-		},
-		ios: {
-			alert: "true",
-			badge: true,
-			sound: 'false'
-		},
-		windows: {}
-	});
-	push.on('registration', (data) => {
-		Usuario.token=data.registrationId;
-	});
-	push.on('notification', (data) => {
-		var textonotificacion="";
-		navigator.vibrate(1000);
-		if(data.additionalData.tipo=="FLAS"){
-			textonotificacion=literales.teenviounflas;
-			var frecibidos=$("#numerodeflasesrecibidos").text();
-			$("#numerodeflasesrecibidos").text(parseInt(frecibidos)+1);
-		}
-		swal({
-			//type: "question",
-			padding:"10px",
-			title: data.additionalData.nombre,
-			text: textonotificacion,
-			imageUrl: ruta+"fotosperfiles/"+data.additionalData.foto,
-			imageWidth: "90%",
-			showCancelButton: false,
-			confirmButtonText: literales.si,
-			cancelButtonText: "OK",
-			reverseButtons: true,
-			allowOutsideClick: false,
-			backdrop: "rgba(100,100,100,0.85)",
-			height: "25%",
-		}).then((result) => {
-			if(result.value){
-				grabarfavoritos();
-			}	
-		});
-		/*
-		alert(data.message);
-		alert(data.additionalData.foto);
-		alert(data.additionalData["foto"]);
-		alert(data.additionalData);
-		console.log(data.message);
-		console.log(data.title);
-		console.log(data.count);
-		console.log(data.sound);
-		console.log(data.image);
-		console.log(data.additionalData);
-		*/
-	});
-	push.on('error', (e) => {
-		console.log(e.message);
-	});
+
 }
 function borrar(){
 	swal({
@@ -442,6 +387,62 @@ function entrar(){
 	jQuery.ajax({type: "POST",dataType: "text",url: ruta +"guardartoken.php",data:data}).done(respuestaguardartoken);	
 	//jQuery.ajax({type: "POST",dataType: "text",url: ruta +"notification.php",data:data}).done(respuestanotification);
 	//Grabamos el token en la base de datos;
+		const push = PushNotification.init({
+		android: {
+		},
+		ios: {
+			alert: "true",
+			badge: true,
+			sound: 'false'
+		},
+		windows: {}
+	});
+	push.on('registration', (data) => {
+		Usuario.token=data.registrationId;
+	});
+	push.on('notification', (data) => {
+		var textonotificacion="";
+		navigator.vibrate(1000);
+		if(data.additionalData.tipo=="FLAS"){
+			textonotificacion=literales.teenviounflas;
+			var frecibidos=$("#numerodeflasesrecibidos").text();
+			$("#numerodeflasesrecibidos").text(parseInt(frecibidos)+1);
+		}
+		swal({
+			//type: "question",
+			padding:"10px",
+			title: data.additionalData.nombre,
+			text: textonotificacion,
+			imageUrl: ruta+"fotosperfiles/"+data.additionalData.foto,
+			imageWidth: "90%",
+			showCancelButton: false,
+			confirmButtonText: literales.si,
+			cancelButtonText: "OK",
+			reverseButtons: true,
+			allowOutsideClick: false,
+			backdrop: "rgba(100,100,100,0.85)",
+			height: "25%",
+		}).then((result) => {
+			if(result.value){
+				grabarfavoritos();
+			}	
+		});
+		/*
+		alert(data.message);
+		alert(data.additionalData.foto);
+		alert(data.additionalData["foto"]);
+		alert(data.additionalData);
+		console.log(data.message);
+		console.log(data.title);
+		console.log(data.count);
+		console.log(data.sound);
+		console.log(data.image);
+		console.log(data.additionalData);
+		*/
+	});
+	push.on('error', (e) => {
+		console.log(e.message);
+	});
 	
 }
 function respuestaguardartoken(response){
