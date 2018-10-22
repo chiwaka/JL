@@ -864,7 +864,7 @@ function respuestabuscar(response){
 	});
 	$("#pensando").fadeOut();
 }
-function PonerFicha(elemento,flasl,flast){
+function PonerFicha2(elemento,flasl,flast){
 	var id=elemento["_id"];
 	var elementofoto=ruta+"fotosperfiles/"+elemento["foto"];
 	var cadenafavoritos="";
@@ -911,8 +911,50 @@ function PonerFicha(elemento,flasl,flast){
 	*/
 	return cadena;			
 }
+function PonerFicha(elemento,flasl,flast){
+	var id=elemento["_id"];
+	var nombre=elemento["Nombre"].toUpperCase();
+	var elementofoto=ruta+"fotosperfiles/"+elemento["foto"];
+	var cadenafavoritos="";
+	if(elemento["esfavorito"]==1){
+		cadenafavoritos="<img id='favorito"+elemento["_id"] +"' style='display:block;float:left;margin:1px 1px 0 0 !important;' src='imagenes/favoritos2.png' />";
+	}else{
+		cadenafavoritos="<img id='favorito"+elemento["_id"] +"' style='display:none;float:left;margin:1px 1px 0 0 !important;' src='imagenes/favoritos2.png' />";
+	}
+	var cadenaflases="";
+	if(elemento["ParaTi"]==1 && elemento["ParaMi"]==1){
+		cadenaflases="FLASPOP";
+	}else if(elemento["ParaTi"]==1){
+		cadenaflases="<p style='margin-top:4px;font-size:4.5vw;font-style:italic;color:#a38628;font-weight:bold;width:100%;text-align:center;'>"+flasl+"</p>";
+		//cadenaflases=flasl;
+	}else if(elemento["ParaMi"]==1){
+		cadenaflases=flast;
+	}	
+	var anchopantalla=$(window).width();
+	anchopantalla=(anchopantalla*40/200)-4;
+	var cadena=`<div class="flexrow" style="width:100%;" onclick="detalles(${id});">
+				<div style="position:absolute;right:10px;margin-top:-${anchopantalla}px;">
+					<img src="imagenes/agujeroverde3pequeno.png" style="margin-top:4px !important;">					
+					${cadenafavoritos}
+				</div>
+				<div style="width:40%;">
+					<img src="${elementofoto}" style="width:100%;border-radius:0%;">
+				</div>
+				<div style="width:60%;padding-left:10px;">
+					<div style="fflexcolumn" style="width:100%;justify-content:space-between">
+						<p style="font-weight:bold !important;font-size:6vw;margin-left:0px;width:100%;text-align:center;color:#454545;text-shadow:1px 1px white">${nombre}</p>
+					</div>
+					${cadenaflases}
+				</div>
+			</div>
+			<div class="raya"></div>`;
+	return cadena;
+}
 function ponermensaje(elemento){
 	var id=elemento["Persona"];
+	if(elemento["foto"]=="mujer.jpg"){
+		elemento["foto"]="mujer.png";
+	}
 	var elementofoto=ruta+"fotosperfiles/"+elemento["foto"];
 	var nombre=elemento["Nombre"];
 	var hora=elemento["hora"];
