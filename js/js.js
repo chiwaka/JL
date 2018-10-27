@@ -54,6 +54,7 @@ function respuestaPonerLiterales(response){
 	literales.leenviasteunflas=response.leenviasteunflas;
 	literales.teenviounflas=response.teenviounflas;
 	literales.elflashasidoenviado=response.elflashasidoenviado;
+	literales.vermas=response.vermas;
 	//Cartel del dia
 	$("#contenido").css("background-image",camino);
 	$("#labelentrar").text(response.labelentrar);
@@ -162,11 +163,13 @@ function inicializar() {
 	discoteca.id=1; //Pachá;
 	FechaFiesta="";
 	ruta="http://www.afassvalencia.es/android/flaspop/";
-	usuariosporpagina=30;
+	usuariosporpagina=50;
 	registroelemento=0;
 	otroUsuario={};	
 	// CREAMOS LA VARIABLE USUARIO SIN INICIALIZAR GLOBAL
 	Usuario={};
+	// ANTES DE CUALQUIER ENVIO AL SERVIDOR COMPROBAMOS SI EXISTE CONEXIÓN A INTERNET
+	ComprobarConexion();	
 	// OBTENEMOS LA FECHA DE LA FIESTA DEL SERVIDOR
 		jQuery.ajax({type: "POST",dataType: "text",async: false,url: ruta+"fechafiesta.php"}).done(function(response){
 		FechaFiesta=response;	
@@ -200,8 +203,6 @@ function inicializar() {
 	$.mobile.buttonMarkup.hoverDelay = 0;
 	$.mobile.pushStateEnabled = false;
 	$.mobile.defaultPageTransition = "none";	
-	// COMPROBAMOS CONEXIÓN A INTERNET
-	ComprobarConexion();
 	// INICIAMOS EL OBJETO USUARIO
 	//Usuario=new claseUsuario();
 	Usuario.id=0;
@@ -219,6 +220,7 @@ function inicializar() {
 	}
 	// CONTROLAMOS SI SE PIERDA LA CONEXIÓN A INTERNET
 	document.addEventListener("offline", ComprobarConexion, false);
+	document.addEventListener("online", ComprobarConexion, false);
 	// INICIAMOS LAS OPCIONES DE TOASTR
 	toastr.options = {
 	  "closeButton": false,
@@ -275,13 +277,20 @@ function borrar(){
 	});
 }
 function ComprobarConexion() {
-    if(navigator.connection.type==Connection.NONE){
-	$.mobile.pageContainer.pagecontainer("change", "#sinconexion", {
-		transition:"fade",
-	});
-	return false;
-    }
-    return true;
+	if(navigator.connection.type==Connection.NONE){
+		if($(":mobile-pagecontainer" ).pagecontainer("getActivePage").attr("id")!="sinconexion"){
+			GuardarPaginaAnterior("sinconexion");
+			$.mobile.pageContainer.pagecontainer("change", "#sinconexion", {
+				transition:"fade",
+			});
+			return false;
+		}	
+	}else{
+		if($(":mobile-pagecontainer" ).pagecontainer("getActivePage").attr("id")=="sinconexion"){
+			BotonAtras();
+		}	    
+		return true;
+	}	
 }
 /*
 camara = {
@@ -843,7 +852,15 @@ function buscar(){
 	jQuery.ajax({type: "POST",dataType: "json",url: ruta+"buscargeneral.php",data:data}).done(respuestabuscar);
 }
 function respuestabuscar(response){
-	GuardarPaginaAnterior("resultadobusqueda");
+	if($(":mobile-pagecontainer" ).pagecontainer("getActivePage").attr("id")!="resultadobusqueda"){
+			GuardarPaginaAnterior("resultadobusqueda");
+	}else{
+		$(".buscarmas").hide();
+	}
+	if(registroelemento==0){
+		$("#contenidoresultadobusqueda").html("");
+		$("#resultadobusqueda").animate({ scrollTop: 0 }, 600);
+	}	
 	var cadena="";
 	$.each(response.datos,function(indice,elemento){
 		if(elemento["_id"]!=Usuario.id){
@@ -851,17 +868,17 @@ function respuestabuscar(response){
 		}	
 	});
 	if(registroelemento+usuariosporpagina<response.totalderegistros){
-		cadena=cadena+`<div class="buscarmas fondo" onclick="vermas('$tipo');" style=\"margin-top:40px;margin-bottom:40px;">
-							<p class="colorletra" style="width:100%;text-align:center;font-size:20px;font-style:italic;">VER MAS</p>
+		registroelemento=registroelemento+usuariosporpagina;	
+		cadena=cadena+`<div class="buscarmas fondo" onclick="buscar();" style=\"margin-top:40px;margin-bottom:40px;">
+							<p class="colorletra" style="width:100%;text-align:center;font-size:20px;font-style:italic;color:maroon !important;">${literales.vermas}</p>
 					</div>`;
 	}	
-	registroelemento=registroelemento+usuariosporpagina-1;
-	$("#contenidoresultadobusqueda").html("");
-	$("#resultadobusqueda").animate({ scrollTop: 0 }, 600);
-	$("#contenidoresultadobusqueda").html(cadena);
-	$.mobile.pageContainer.pagecontainer("change", "#resultadobusqueda", {
-		transition:"flip",
-	});
+	$("#contenidoresultadobusqueda").append(cadena);
+	if($(":mobile-pagecontainer" ).pagecontainer("getActivePage").attr("id")!="resultadobusqueda"){
+		$.mobile.pageContainer.pagecontainer("change", "#resultadobusqueda", {
+			transition:"flip",
+		});
+	}	
 	$("#pensando").fadeOut();
 }
 function PonerFicha2(elemento,flasl,flast){
@@ -931,16 +948,16 @@ function PonerFicha(elemento,flasl,flast){
 		cadenaflases=flast;
 	}	
 	var anchopantalla=$(window).width();
-	anchopantalla=(anchopantalla*40/200)-4;
+	anchopantalla=(anchopantalla*35/200)-4;
 	var cadena=`<div class="flexrow" style="width:100%;" onclick="detalles(${id});">
 				<div style="position:absolute;right:10px;margin-top:-${anchopantalla}px;">
 					<img src="imagenes/agujeroverde3pequeno.png" style="margin-top:4px !important;">					
 					${cadenafavoritos}
 				</div>
-				<div style="width:40%;">
+				<div style="width:35%;">
 					<img src="${elementofoto}" style="width:100%;border-radius:0%;">
 				</div>
-				<div style="width:60%;padding-left:10px;">
+				<div style="width:65%;padding-left:10px;">
 					<div style="fflexcolumn" style="width:100%;justify-content:space-between">
 						<p style="font-weight:bold !important;font-size:6vw;margin-left:0px;width:100%;text-align:center;color:#454545;text-shadow:1px 1px white">${nombre}</p>
 					</div>
