@@ -55,6 +55,11 @@ function respuestaPonerLiterales(response){
 	literales.teenviounflas=response.teenviounflas;
 	literales.elflashasidoenviado=response.elflashasidoenviado;
 	literales.vermas=response.vermas;
+	literales.hombre=response.hombre;
+	literales.mujer=response.mujer;
+	literales.hombres=response.hombres;
+	literales.mujeres=response.mujeres;
+	literales.hombresymujeres=response.hombresymujeres;
 	//Cartel del dia
 	$("#contenido").css("background-image",camino);
 	$("#labelentrar").text(response.labelentrar);
@@ -62,6 +67,12 @@ function respuestaPonerLiterales(response){
 	$("#labelrecibidos").text(response.labelrecibidos);
 	$("#labelseleccionaelorigendelaimagen").text(response.labelseleccionaelorigendelaimagen);
 	$("#labelunafrase").text(response.labelunafrase);
+	$("#labelpulsaenlaimagen").text(response.labelpulsaenlaimagen);
+	$("#labelnombre").text(response.labelnombre);
+	$("#labelmaximo").text(response.labelmaximo);
+	$("#labelsexo").text(response.labelsexo);
+	$("#labelfechadenacimiento").text(response.labelfechadenacimiento);
+	$("#labeladmitoflasesde").text(response.labeladmitoflasesde);
 	soy=response.soy;
 	megusta=response.megusta;
 	añosliteral=response.añosliteral;
@@ -725,7 +736,9 @@ $(document).on("pagecreate", "#perfil", function(event){
 	$("#pensando").fadeOut();
 });
 function sacofoto(tipo){
-	quitardedondefoto();	  
+	$("#pensando").show();
+	$("#todo").fadeOut();
+	//quitardedondefoto();	  
 	if(tipo==1){
 		navigator.camera.getPicture(Exito, Fracaso,{ quality: 100, destinationType: Camera.DestinationType.DATA_URL,sourceType : Camera.PictureSourceType.CAMERA,correctOrientation: true});
 	}else if(tipo==2){
@@ -744,6 +757,7 @@ function Exito(imageData){
 	//image=document.getElementById("imagencrop");
 	//image.src=imageData;
 	quitardedondefoto();	  
+	$("#pensando").hide();
 	$("#paginaguillotine").fadeIn("slow",function(){
 		picture = $('#imagencrop');  
 		picture.guillotine({width:300, height:300,zoomStep: 0.01});
@@ -1228,9 +1242,9 @@ function quitarseleccionarsexo(){
 function devolversexo(sexo){
 	var sexocadena;
 	if(sexo==1){
-		sexocadena="HOMBRE";
+		sexocadena=literales.hombre;
 	}else{
-		sexocadena="MUJER";
+		sexocadena=literales.mujer;
 	}
 	$("#sexoliteral").html(sexocadena);
 	$("#sexoliteral").attr("data-sexo",sexo);
@@ -1247,11 +1261,11 @@ function quitaradmito(){
 function devolveradmito(sexo){
 	var sexocadena;
 	if(sexo==1){
-		sexocadena="HOMBRES";
+		sexocadena=literales.hombres;
 	}else if(sexo==2){
-		sexocadena="MUJERES";
+		sexocadena=literales.mujeres;
 	}else{
-		sexocadena="HOMBRES Y MUJERES"
+		sexocadena=literales.hombresymujeres;
 	}
 	$("#admitoliteral").html(sexocadena);
 	$("#admitoliteral").attr("data-admito",sexo);

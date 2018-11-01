@@ -153,12 +153,12 @@
 				</div>
 			</div>
 			<div class="w85 centrado">
-				<p class="center" style="font-size:14px;font-style:italic;margin-top:14px !important;">Pulsa en la imagen para cambiar la foto</p>
+				<p id="labelpulsaenlaimagen" class="center" style="font-size:14px;font-style:italic;margin-top:14px !important;"></p>
 			</div>
 			<div class="raya"></div>
 			<div class="w85 centrado" onclick="$('#nombreusuario').trigger('focus');">
-				<label class="titulo" id="labelnombre">Nombre</label>
-				<p class="titulo" style="font-size:14px;text-decoration:italic;margin-top:0 !important">(Max. 10 caracteres)</p>
+				<label class="titulo" id="labelnombre"></label>
+				<p class="titulo" id="labelmaximo" style="font-size:14px;text-decoration:italic;margin-top:0 !important"></p>
 				<input type="text" id="nombreusuario" data-role="none" class="limpio w100" maxlength="10" style="margin-bottom:0px !important;" value="" /> 
 			</div>
 			<div class="raya"></div>
@@ -169,19 +169,19 @@
 			</div>
 			<div class="raya"></div>	
 			<div class="w85 centrado" onclick="seleccionarsexo();">	
-				<label class="titulo" id="labelsexo">Sexo</label>
+				<label class="titulo" id="labelsexo"></label>
 				<div class="w100" style="border:0;border-bottom:0px solid blue !important;">
 					<p id="sexoliteral" data-sexo=0 style="margin-top:30px !important;height:20px;"></p>
 				</div>
 			</div>
 			<div class="raya"></div>				
 			<div class="w85 centrado" onclick="$('#fechadenacimiento').trigger('focus');">
-				<label class="titulo" id="labelfechadenacimiento">Fecha de nacimiento</label>
+				<label class="titulo" id="labelfechadenacimiento"></label>
 				<input id="fechadenacimiento" type="date" data-role="none" class="limpio w100" style="margin-top:30px !important;" />
 			</div>	
 			<div class="raya"></div>	
 			<div class="w85 centrado" onclick="seleccionaradmito();">	
-				<label class="titulo" id="labeladmito">Admito flases de ...</label>
+				<label class="titulo" id="labeladmitoflasesde"></label>
 				<div class="w100" style="border:0;border-bottom:0px solid blue !important;">
 					<p id="admitoliteral" data-admito=0 style="margin-top:30px !important;height:20px;"></p>
 				</div>
@@ -229,18 +229,27 @@
 			</div>	
 		</div>
 		-->
-		<div id="sexo" class="w100" style="display:none;position:fixed;bottom:0;overflow:hidden;background-color:white;z-index:2;background-color:white;height:200px;background:url(imagenes/celeste.gif) repeat;">
-			<div class="flexcolumn" style="height:100%;justify-content:space-between;width:100%;">
-				<h2 style="justify-self:flex-start;font-size:16px;margin-top:10px;">SELECCIONA TU SEXO</h2>
-				<div class="flexrow" style="align-self:center;">
-					<img onclick="devolversexo(1);" src="imagenes/Hombre10.png" style="width:50%;margin-right:40px;" />
-					<img onclick="devolversexo(2);"  src="imagenes/Mujer2.jpg" style="width:40%;" />
-				</div>
-				<div></div>
-			</div>
+		<div id="sexo" class="w100" style="display:none;position:fixed;bottom:0;overflow:hidden;background-color:white;z-index:2;background-color:white;padding-bottom:40px;background:url(imagenes/OtroFondo.gif) repeat;">
+			<!--<div class="flexcolumn" style="height:100%;justify-content:space-between;width:100%;">-->
+				<h2 class="w100" style="justify-self:flex-start;font-size:16px;margin-top:10px;text-align:center;margin-bottom:40px;">SELECCIONA TU SEXO</h2>
+				<table class="w100">
+					<tr>
+						<td style="width:50%;text-align:center;"><img onclick="devolversexo(1);" src="imagenes/Hombre10.png" style="width:80%;"></td>
+						<td style="width:50%;text-align:center;"><img onclick="devolversexo(2);" src="imagenes/Mujer10.png" style="width:80%;"></td>
+					</tr>
+				</table>
+			<!--</div>-->
 		</div>
-		<div id="admito" class="w100" style="display:none;position:fixed;bottom:0;overflow:hidden;background-color:white;z-index:2;background-color:white;height:200px;">
-			<div class="flexcolumn" style="height:100%;justify-content:space-between;width:100%;">
+		<div id="admito" class="w100" style="display:none;position:fixed;bottom:0;overflow:hidden;background-color:white;z-index:2;background-color:white;background:url(imagenes/OtroFondo.gif) repeat;padding-bottom:40px;">
+			<h2 class="w100" style="justify-self:flex-start;font-size:16px;margin-top:10px;text-align:center;margin-bottom:40px;">ADMITO FLASES DE</h2>
+				<table class="w100">
+					<tr>
+						<td style="width:33%;text-align:center;"><img onclick="devolveradmito(1);" src="imagenes/Hombre10.png" style="width:90%;"></td>
+						<td style="width:33%;text-align:center;"><img onclick="devolveradmito(2);" src="imagenes/Mujer10.png" style="width:90%;"></td>
+						<td style="width:33%;text-align:center;"><img onclick="devolveradmito(3);" src="imagenes/Ambos10.png" style="width:90%;"></td>
+					</tr>
+				</table>
+			<!--<div class="flexcolumn" style="height:100%;justify-content:space-between;width:100%;">
 				<h2 style="justify-self:flex-start;font-size:16px;margin-top:10px;">ADMITO FLASES DE</h2>
 				<div class="flexrow w100" style="align-self:center;">
 					<img onclick="devolveradmito(1);" src="imagenes/Hombre2.jpg" style="width:25%;margin-left:5%;margin-right:5%;" />
@@ -248,14 +257,26 @@
 					<img onclick="devolveradmito(3);"  src="imagenes/delosdos.jpg" style="width:25%;" />
 				</div>
 				<div></div>
-			</div>
+			</div>-->
 		</div>
-		<div id="dedondefoto" class="w100" style="display:none;position:fixed;bottom:0;overflow:hidden;background-color:white;z-index:2;background-color:rgb(250,252,220);background:url(imagenes/marmol.jpg) repeat;">
-			<p id="labelseleccionaelorigendelaimagen" class="center" style="margin-top:10px;margin-bottom:30px;font-style:italic;">Selecciona el origen de la foto</p>
+		<div id="dedondefoto" class="w100" style="display:none;position:fixed;bottom:0;overflow:hidden;background-color:white;z-index:2;background-color:rgb(250,252,220);background:url(imagenes/marmol.jpg) repeat;padding-bottom:40px;">
+			<p id="labelseleccionaelorigendelaimagen" class="center" style="margin-top:10px;margin-bottom:40px;font-style:italic;"></p>
+			<!--
 			<div class="flexrow" style="height:100%;justify-content:space-around;width:100%;margin-bottom:30px;">
 				<a id="labelcamara" class="ui-btn ui-icon-camera ui-btn-icon-top">CAMARA</a>
 				<a id="labelgaleria" class="ui-btn ui-icon-grid ui-btn-icon-top" href="#">GALERÍA</a>
 			</div>
+			-->
+			<table class="w100" style="text-align:center;">
+				<tr>
+					<td id="labelcamara" style="width:50%;text-align:center;"><img src="imagenes/camara.png" style="width:60%;"></td>
+					<td id="labelgaleria" style="width:50%;text-align:center;"><img src="imagenes/galeria.png" style="width:60%;"></td>
+				</tr>
+				<tr>
+					<td><p>CAMARA</p></td>
+					<td><p>GALERÍA</p></td>
+				</tr>
+			</table>		
 		</div>		
 	</div>
 	<!-- *************************************************************************** PAGINA DE BÚSQUEDA ********************************************************************************-->
@@ -263,7 +284,7 @@
 		<div class="sombra flexrow h50 bg100 w100" style="position:fixed;z-index:1"> 
 			<div class="button back" style="position:absolute;left:10px;" onclick="BotonAtras();"></div>
 			<h1 id="labelperfil" class="f20" style="margin-left:6px !important;color:white;">BÚSQUEDAS</h1>
-			<div class="button ok" style="position:absolute;right:10px;font-size:10px;" onclick="registroelemento=0;buscar();"></div>
+			<div class="button buscar" style="position:absolute;right:10px;font-size:10px;" onclick="registroelemento=0;buscar();"></div>
 		</div>
 		<div id="contenidobusqueda" class="w100 bg200" style="position:absolute;top:60px;">
 			<div class="w85 centrado" onclick="$('#nombrebusquedausuario').trigger('focus');">
